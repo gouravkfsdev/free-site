@@ -283,6 +283,10 @@ body {
   .carousel-text p {
     font-size: 1em;
   }
+
+  .contact-info a {
+    font-size: 12px;
+  }
 }
 
 .container {
