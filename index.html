@@ -2,370 +2,330 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Import Export </title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="./assets/css/main.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes skillFill {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: var(--skill-percentage);
+            }
+        }
+
+        .skill-fill {
+            animation: skillFill 1.5s ease-out forwards;
+        }
+
+        .animated-bg {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            height: 100vh;
+            position: absolute;
+            width: 100%;
+            opacity: 0.1;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .speedometer {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .speedometer::before {
+            content: "";
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 20px solid #2563eb;
+            border-top-color: #e5e7eb;
+            transform: rotate(calc(var(--percentage) * 1.8deg));
+            animation: fill 1s ease-out forwards;
+        }
+
+        @keyframes fill {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(calc(var(--percentage) * 1.8deg));
+            }
+        }
+
+        .tool-card {
+            transition: all 0.3s ease;
+        }
+
+        .tool-card:hover {
+            transform: translateY(-5px);
+        }
+    </style>
 </head>
 
-<body>
-    <header class="header">
-        <div class="top-bar">
-            <div class="contact-info">
-                <a href="mailto:info@iecode-india.org">
-                    <i class="fas fa-envelope"></i>
-                    info@iecode-india.org  | <i class="fas fa-phone"></i> +91-9823943256
-                </a>
-            </div>
-            <nav class="top-nav">
-                <a href="#">Terms & Conditions</a>
-                <a href="#">FAQ's</a>
-                <a href="#">Contact Us</a>
-                <a href="#">Benefits</a>
-            </nav>
-        </div>
-
-        <div class="logo-section">
-            <div class="logo">
-                <img src="https://ieccode-india.org/assest/logo.png" alt="IEC Logo">
-            </div>
-            <div class="info-text">
-                <p>भारत का आयात निर्यात कोड पंजीकरण परामर्श पोर्टल</p>
-                <p>INDIA'S IMPORT EXPORT CODE REGISTRATION CONSULTANCY PORTAL</p>
-            </div>
-            <div class="digital-india-logo">
-                <img src="./assets/images/digital-india.png" style="mix-blend-mode: multiply;" alt="Swachh Bharat">
-            </div>
-        </div>
-
-        <nav class="main-nav">
-            <button class="mobile-menu-toggle" aria-label="Toggle Menu">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="main-nav-links">
-                <a href="#">New Import Export Code</a>
-                <a href="#">IEC Renewal/Update</a>
-                <a href="#">IEC Modification</a>
-                <a href="#">Procedure</a>
-                <a href="#">FAQ's</a>
-                <a href="#">Benefits</a>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="fixed w-full top-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
+        <nav class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <a href="#" class="text-2xl font-bold text-gray-800">Gourav<span class="text-blue-600">.</span></a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#" class="text-gray-600 hover:text-blue-600 transition">Home</a>
+                    <a href="#summary" class="text-gray-600 hover:text-blue-600 transition">About</a>
+                    <a href="#skills" class="text-gray-600 hover:text-blue-600 transition">Skills</a>
+                    <a href="#" class="text-gray-600 hover:text-blue-600 transition">Contact</a>
+                </div>
+                <button class="md:hidden text-gray-800">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
             </div>
         </nav>
     </header>
 
-    <div class="carousel-container">
-        <div class="carousel">
-            <div class="carousel-slide">
-                <div class="carousel-image" style="background-image: url('./assets/images/banner_1.png');"></div>
-                <div class="carousel-text">
-                    <h2>Import Export Code</h2>
-                    <p>Streamline your international trade processes with our comprehensive IEC registration and
-                        consultation services.</p>
-                </div>
-            </div>
-            <div class="carousel-slide">
-                <div class="carousel-image" style="background-image: url('./assets/images/banner_2.png');"></div>
-                <div class="carousel-text">
-                    <h2>Global Trade Solutions</h2>
-                    <p>Simplify your journey to global markets with our expert guidance and support.</p>
-                </div>
-            </div>
-            <div class="carousel-slide">
-                <div class="carousel-image" style="background-image: url('./assets/images/banner_3.png');"></div>
-                <div class="carousel-text">
-                    <h2>Seamless Registration</h2>
-                    <p>Fast, efficient, and hassle-free Import Export Code registration for your business.</p>
-                </div>
-            </div>
-        </div>
-        <div class="carousel-dots">
-            <div class="carousel-dot active" data-slide="0"></div>
-            <div class="carousel-dot" data-slide="1"></div>
-            <div class="carousel-dot" data-slide="2"></div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="form-container">
-            <div class="form">
-                <div class="form-header">
-                    <h2>New Import Export Code</h2>
-                </div>
-                <form id="registration-form">
-                    <div class="form-group">
-                        <label for="date-of-incorporation">Date of Incorporation / Date of Birth</label>
-                        <input type="text" id="date-of-incorporation" placeholder="mm/dd/yyyy" required>
-                        <div class="error-message" id="date-of-incorporation-error"></div>
+    <!-- Hero Section -->
+    <section class="min-h-screen pt-20 flex items-center bg-white">
+        <div class="animated-bg"></div>
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 text-center md:text-left" data-aos="fade-right">
+                    <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
+                        Hi, I'm <span class="gradient-text">Gourav</span>
+                    </h1>
+                    <div class="text-xl md:text-2xl text-gray-600 mb-8">
+                        I'm a <span id="typed" class="text-blue-600"></span>
                     </div>
-                    <div class="form-group">
-                        <label for="pan-no">PAN No. of Entity</label>
-                        <input type="text" id="pan-no" placeholder="Enter PAN No." required>
-                        <div class="error-message" id="pan-no-error"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact-no">Contact No.</label>
-                        <input type="text" id="contact-no" placeholder="Mobile No" required>
-                        <div class="error-message" id="contact-no-error"></div>
-                    </div>
-                    <div class="form-group">
-                        <label for="declaration">
-                            <input type="checkbox" id="declaration" required>
-                            I hereby declare that information provided in the online registration form is true to the
-                            best of my knowledge and I accept terms, disclaimer, and policies by clicking "Proceed &
-                            Pay" button.
-                        </label>
-                        <div class="error-message" id="declaration-error"></div>
-                    </div>
-                    <button type="submit" class="submit-btn">Submit</button>
-                </form>
-            </div>
-            <div class="instructions">
-                <div class="instructions-header">
-                    <h2>Instructions</h2>
-                </div>
-                <ol>
-                    <li><b>Requirement:</b> Select New if you require to apply fresh IEC Code. Select Modify if you need
-                        changes in existing IEC Code.</li>
-                    <li><b>Name of Business Entity:</b> Fill the Business Entity which will get printed on IEC Certificate.
-                    </li>
-                    <li><b>Constitution of Busines:</b> Select business type of the applicant in which name IEC requires to
-                        apply.</li>
-                    <li><b>Description of Business:</b> Fill the name of Business / Enterprise which will get printed on IEC
-                        Certificate.</li>
-                    <li><b>Business Activity:</b> Select main business activity to be conducted.</li>
-                    <li><b>Date of Incorporation / Date of Birth:</b> Select Your Date of Incorporation / Date of Birth.</li>
-                </ol>
-            </div>
-        </div>
-    </div>
-
-
-    <h2 class="main-title">Procedure To Obtain Import Export Code (IEC)
-        Registration Certificate Online</h2>
-    <div class="container1">
-        <div class="step">
-            <div class="step-icon">
-                <i class="fas fa-file-alt"></i>
-            </div>
-            <div class="step-title">Fill up the Application form</div>
-            <div class="step-description">Complete the online registration form.</div>
-        </div>
-        <div class="step">
-            <div class="step-icon">
-                <i class="fas fa-credit-card"></i>
-            </div>
-            <div class="step-title">Make online Payment</div>
-            <div class="step-description">Proceed with the online payment for the application.</div>
-        </div>
-        <div class="step">
-            <div class="step-icon">
-                <i class="fas fa-upload"></i>
-            </div>
-            <div class="step-title">Upload required documents</div>
-            <div class="step-description">Provide the necessary documents for registration.</div>
-        </div>
-        <div class="step">
-            <div class="step-icon">
-                <i class="fas fa-envelope"></i>
-            </div>
-            <div class="step-title">Receive Certificate on mail</div>
-            <div class="step-description">The registration certificate will be delivered to you.</div>
-        </div>
-    </div>
-
-    <div class="container2">
-        <h2 class="main-title">Frequently Asked Question (IEC)</h2>
-
-        <div class="grid-container">
-            <div class="accordion">
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <h3>What is IEC?</h3>
-                        <i class="icon fas fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <p>IEC stands for International Electrotechnical Commission, a global organization that prepares
-                            and publishes international standards for all electrical, electronic, and related
-                            technologies.</p>
+                    <div class="flex gap-4 justify-center md:justify-start">
+                        <a href="#" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-full transition">
+                            Hire Me
+                        </a>
+                        <a href="#"
+                            class="border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white px-6 py-3 rounded-full transition">
+                            Download CV
+                        </a>
                     </div>
                 </div>
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <h3>How are standards developed?</h3>
-                        <i class="icon fas fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <p>Standards are developed through a collaborative process involving technical experts, industry
-                            representatives, and other stakeholders. The process typically involves research,
-                            consensus-building, and public review.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <h3>Importance of IEC Standards</h3>
-                        <i class="icon fas fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <p>IEC standards ensure safety, reliability, and interoperability of electrical and electronic
-                            products and systems across different countries and industries.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion">
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <h3>Global Reach</h3>
-                        <i class="icon fas fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <p>IEC works with 171 countries, representing 98% of the world's population and more than 96% of
-                            global electricity generation.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <h3>Technical Committees</h3>
-                        <i class="icon fas fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <p>IEC has over 200 technical committees and subcommittees that cover various domains like power
-                            generation, transmission, and electrical safety.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <h3>Certification Systems</h3>
-                        <i class="icon fas fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <p>IEC provides certification systems that help manufacturers demonstrate compliance with
-                            international standards and facilitate global trade.</p>
+                <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center" data-aos="fade-left">
+                    <div class="relative">
+                        <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-blue-500 float-animation">
+                            <img src="./IMG_20241230_205159.jpg" alt="Gourav" class="w-full h-full object-cover" />
+                        </div>
+                        <div
+                            class="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold">3+ Years</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="container2">
-        <h2 class="main-title">Benefits Of Import Export Code (IEC)
-        Registration Certificate</h2>
-
-        <div class="grid-container">
-            <div class="accordion">
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <h3>What is IEC?</h3>
-                        <i class="icon fas fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <p>IEC stands for International Electrotechnical Commission, a global organization that prepares
-                            and publishes international standards for all electrical, electronic, and related
-                            technologies.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <h3>How are standards developed?</h3>
-                        <i class="icon fas fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <p>Standards are developed through a collaborative process involving technical experts, industry
-                            representatives, and other stakeholders. The process typically involves research,
-                            consensus-building, and public review.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <h3>Importance of IEC Standards</h3>
-                        <i class="icon fas fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <p>IEC standards ensure safety, reliability, and interoperability of electrical and electronic
-                            products and systems across different countries and industries.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="accordion">
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <h3>Global Reach</h3>
-                        <i class="icon fas fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <p>IEC works with 171 countries, representing 98% of the world's population and more than 96% of
-                            global electricity generation.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <h3>Technical Committees</h3>
-                        <i class="icon fas fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <p>IEC has over 200 technical committees and subcommittees that cover various domains like power
-                            generation, transmission, and electrical safety.</p>
-                    </div>
-                </div>
-                <div class="accordion-item">
-                    <div class="accordion-header">
-                        <h3>Certification Systems</h3>
-                        <i class="icon fas fa-chevron-down"></i>
-                    </div>
-                    <div class="accordion-content">
-                        <p>IEC provides certification systems that help manufacturers demonstrate compliance with
-                            international standards and facilitate global trade.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <footer class="modern-footer">
-        <div class="footer-content">
-            <div class="footer-section about">
-                <h2>© 2019 | Disclaimer</h2>
-                <p>
-                    This portal is owned and operated by a consultancy firm and does not represent any relation with
-                    DGFT or government authority. This is not a government-run website. The form is just to collect
-                    information to assist clients with Import Export Code (IEC) registration, processing, and related
-                    services.
+    <!-- Summary Section -->
+    <section id="summary" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-3xl mx-auto text-center" data-aos="fade-up">
+                <h2 class="text-3xl font-bold text-gray-800 mb-8">About Me</h2>
+                <p class="text-gray-600 leading-relaxed mb-8">
+                    I'm a passionate developer with expertise in building modern web
+                    applications. With over 5 years of experience in the industry, I've
+                    worked on various projects ranging from small business websites to
+                    large-scale enterprise applications.
                 </p>
-            </div>
-
-            <div class="footer-section links">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">Apply New</a></li>
-                    <li><a href="#">Modification</a></li>
-                    <li><a href="#">IEC Renewal/Update</a></li>
-                    <li><a href="#">Procedure</a></li>
-                    <li><a href="#">FAQs</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section contact">
-                <h3>Resources</h3>
-                <ul>
-                    <li><a href="#">Benefits</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Refund Policy</a></li>
-                    <li><a href="#">Terms & Conditions</a></li>
-                    <li><a href="#">Disclaimer Policy</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section branding">
-                <img src="./assets/images/digital-india.png" style="mix-blend-mode: difference;" alt="IEC Logo" class="footer-logo" />
-                <img src="./assets/images/azadi-mahotsav.png" style="mix-blend-mode: difference;" alt="IEC Logo" class="footer-logo" />
+                <div class="grid grid-cols-3 gap-6 mt-12">
+                    <div class="p-6 bg-white rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="font-bold text-xl text-gray-800 mb-2">100+</h3>
+                        <p class="text-gray-600">Projects Completed</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="200">
+                        <h3 class="font-bold text-xl text-gray-800 mb-2">50+</h3>
+                        <p class="text-gray-600">Happy Clients</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="300">
+                        <h3 class="font-bold text-xl text-gray-800 mb-2">5+</h3>
+                        <p class="text-gray-600">Years Experience</p>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
+    </section>
 
-    <script src="./assets/js/custom.js"></script>
-    <script src="./assets/js/carousel.js"></script>
+    <!-- Skills Section -->
+    <!-- Updated Skills Section with Speedometer -->
+    <section id="skills" class="py-10 bg-white">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-gray-800 text-center mb-12" data-aos="fade-up">
+                My Skills
+            </h2>
+
+            <!-- Speedometer Skills -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
+                <div class="text-center" data-aos="fade-up">
+                    <div class="speedometer mx-auto" style="--percentage: 95">
+                        <span class="text-2xl font-bold text-blue-600">95%</span>
+                    </div>
+                    <h3 class="mt-4 font-semibold text-gray-800">Frontend</h3>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="speedometer mx-auto" style="--percentage: 85">
+                        <span class="text-2xl font-bold text-blue-600">85%</span>
+                    </div>
+                    <h3 class="mt-4 font-semibold text-gray-800">Backend</h3>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="speedometer mx-auto" style="--percentage: 90">
+                        <span class="text-2xl font-bold text-blue-600">90%</span>
+                    </div>
+                    <h3 class="mt-4 font-semibold text-gray-800">Database</h3>
+                </div>
+            </div>
+
+            <!-- Programming Tools -->
+            <div class="mt-20">
+                <h3 class="text-2xl font-bold text-gray-800 text-center mb-12" data-aos="fade-up">
+                    Tools & Technologies
+                </h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+                    <div class="tool-card p-6 bg-white rounded-lg shadow-md text-center" data-aos="fade-up">
+                        <div class="text-4xl mb-4">💻</div>
+                        <h4 class="font-semibold text-gray-800">HTML/CSS/JS</h4>
+                        <p class="text-gray-600 text-sm mt-2">Advanced</p>
+                    </div>
+                    <div class="tool-card p-6 bg-white rounded-lg shadow-md text-center" data-aos="fade-up"
+                        data-aos-delay="100">
+                        <div class="text-4xl mb-4">⚛️</div>
+                        <h4 class="font-semibold text-gray-800">React</h4>
+                        <p class="text-gray-600 text-sm mt-2">Expert</p>
+                    </div>
+                    <div class="tool-card p-6 bg-white rounded-lg shadow-md text-center" data-aos="fade-up"
+                        data-aos-delay="200">
+                        <div class="text-4xl mb-4">🔷</div>
+                        <h4 class="font-semibold text-gray-800">TypeScript</h4>
+                        <p class="text-gray-600 text-sm mt-2">Intermediate</p>
+                    </div>
+                    <div class="tool-card p-6 bg-white rounded-lg shadow-md text-center" data-aos="fade-up"
+                        data-aos-delay="300">
+                        <div class="text-4xl mb-4">🌿</div>
+                        <h4 class="font-semibold text-gray-800">Node.js</h4>
+                        <p class="text-gray-600 text-sm mt-2">Advanced</p>
+                    </div>
+                    <div class="tool-card p-6 bg-white rounded-lg shadow-md text-center" data-aos="fade-up">
+                        <div class="text-4xl mb-4">🎨</div>
+                        <h4 class="font-semibold text-gray-800">Tailwind CSS</h4>
+                        <p class="text-gray-600 text-sm mt-2">Expert</p>
+                    </div>
+                    <div class="tool-card p-6 bg-white rounded-lg shadow-md text-center" data-aos="fade-up"
+                        data-aos-delay="100">
+                        <div class="text-4xl mb-4">🗄️</div>
+                        <h4 class="font-semibold text-gray-800">MongoDB</h4>
+                        <p class="text-gray-600 text-sm mt-2">Advanced</p>
+                    </div>
+                    <div class="tool-card p-6 bg-white rounded-lg shadow-md text-center" data-aos="fade-up"
+                        data-aos-delay="200">
+                        <div class="text-4xl mb-4">📦</div>
+                        <h4 class="font-semibold text-gray-800">Git</h4>
+                        <p class="text-gray-600 text-sm mt-2">Advanced</p>
+                    </div>
+                    <div class="tool-card p-6 bg-white rounded-lg shadow-md text-center" data-aos="fade-up"
+                        data-aos-delay="300">
+                        <div class="text-4xl mb-4">☁️</div>
+                        <h4 class="font-semibold text-gray-800">AWS</h4>
+                        <p class="text-gray-600 text-sm mt-2">Intermediate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        new Typed("#typed", {
+            strings: ["Developer", "Designer", "Freelancer"],
+            typeSpeed: 50,
+            backSpeed: 50,
+            loop: true,
+        });
+
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+        });
+    </script>
 </body>
 
 </html>
