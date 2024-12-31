@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.12/typed.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -134,16 +135,47 @@
         .tool-card:hover {
             transform: translateY(-5px);
         }
+
         #canvas {
             position: fixed;
             top: 0;
             left: 0;
         }
+        .social-float {
+      transition: all 0.3s ease;
+    }
+    
+    .social-float:hover {
+      transform: translateY(-10px);
+    }
+
     </style>
 </head>
 
 <body class="bg-gray-200">
     <canvas id="canvas"></canvas>
+
+    <div class="fixed right-8 top-1/2 -translate-y-1/2 flex flex-col gap-4">
+        <!-- LinkedIn -->
+        <a href="#" class="social-float w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center text-white hover:shadow-lg">
+          <i class="fab fa-linkedin-in text-xl"></i>
+        </a>
+        
+        <!-- Instagram -->
+        <a href="#" class="social-float w-12 h-12 bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 rounded-full flex items-center justify-center text-white hover:shadow-lg">
+          <i class="fab fa-instagram text-xl"></i>
+        </a>
+        
+        <!-- LeetCode -->
+        <a href="#" class="social-float w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center text-white hover:shadow-lg">
+          <i class="fas fa-code text-xl"></i>
+        </a>
+        
+        <!-- Facebook -->
+        <a href="#" class="social-float w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white hover:shadow-lg">
+          <i class="fab fa-facebook-f text-xl"></i>
+        </a>
+      </div>
     <!-- Contact Header -->
     <div class="bg-blue-600 text-white py-2">
         <div class="container mx-auto px-4 flex flex-wrap justify-between items-center text-sm">
@@ -594,7 +626,7 @@
         });
     </script>
     <script>
-         const canvas = document.getElementById('canvas');
+        const canvas = document.getElementById('canvas');
         const ctx = canvas.getContext('2d');
 
         // Set canvas size
