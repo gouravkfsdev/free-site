@@ -134,10 +134,16 @@
         .tool-card:hover {
             transform: translateY(-5px);
         }
+        #canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
     </style>
 </head>
 
-<body class="bg-gray-50">
+<body class="bg-gray-200">
+    <canvas id="canvas"></canvas>
     <!-- Contact Header -->
     <div class="bg-blue-600 text-white py-2">
         <div class="container mx-auto px-4 flex flex-wrap justify-between items-center text-sm">
@@ -189,7 +195,7 @@
     <!-- Hero Section -->
     <section class="min-h-screen flex items-center bg-white">
         <div class="animated-bg"></div>
-        <div class="container mx-auto px-6">
+        <div class="container max-w-4xl mx-auto px-6">
             <div class="flex flex-col md:flex-row items-center justify-between">
                 <div class="md:w-1/2 text-center md:text-left" data-aos="fade-right">
                     <h1 class="text-4xl md:text-6xl font-bold text-gray-800 mb-4">
@@ -211,8 +217,7 @@
                 <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center" data-aos="fade-left">
                     <div class="relative">
                         <div class="w-64 h-64 rounded-full overflow-hidden border-4 border-blue-500 float-animation">
-                            <img src="./IMG_20241230_205159.jpg"
-                                alt="Gourav" class="w-full h-full object-cover" />
+                            <img src="./IMG_20241230_205159.jpg" alt="Gourav" class="w-full h-full object-cover" />
                         </div>
                         <div
                             class="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-600 rounded-full flex items-center justify-center">
@@ -224,27 +229,29 @@
         </div>
     </section>
 
-      <!-- Summary Section -->
-      <section id="summary" class="py-16 bg-white">
+    <!-- Summary Section -->
+    <section id="summary" class="py-10 bg-white">
         <div class="container mx-auto px-4">
             <div class="max-w-3xl mx-auto" data-aos="fade-up">
                 <h2 class="text-2xl font-bold mb-6">Professional Summary</h2>
                 <p class="text-gray-600 leading-relaxed">
-                    Results-driven Full Stack Developer with 2.7+ years of experience in web application development. 
-                    Expertise in PHP, Laravel, MySQL, and modern JavaScript frameworks. Demonstrated success in 
-                    designing scalable applications, optimizing database performance, and implementing secure RESTful APIs. 
-                    Known for delivering high-quality solutions while adhering to best coding practices and agile methodologies.
+                    Results-driven Full Stack Developer with 2.7+ years of experience in web application development.
+                    Expertise in PHP, Laravel, MySQL, and modern JavaScript frameworks. Demonstrated success in
+                    designing scalable applications, optimizing database performance, and implementing secure RESTful
+                    APIs.
+                    Known for delivering high-quality solutions while adhering to best coding practices and agile
+                    methodologies.
                 </p>
             </div>
         </div>
     </section>
 
     <!-- Experience Section -->
-    <section id="experience" class="py-16 bg-gray-50">
+    <section id="experience" class="py-10 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="max-w-3xl mx-auto">
                 <h2 class="text-2xl font-bold mb-8">Professional Experience</h2>
-                
+
                 <div class="space-y-8">
                     <!-- IT-SCIENT Current Role -->
                     <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up">
@@ -270,31 +277,12 @@
         </div>
     </section>
 
-    <!-- Education Section -->
-    <section id="education" class="py-16 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto">
-                <h2 class="text-2xl font-bold mb-8">Education</h2>
-                <div class="space-y-6">
-                    <div class="bg-gray-50 p-6 rounded-lg" data-aos="fade-up">
-                        <h3 class="font-semibold">Master of Computer Application - MCA (Pursuing)</h3>
-                        <p class="text-gray-600">Sikkim Manipal University | 2023 - 2025</p>
-                    </div>
-                    <div class="bg-gray-50 p-6 rounded-lg" data-aos="fade-up" data-aos-delay="100">
-                        <h3 class="font-semibold">Bachelor of Computer Applications - BCA</h3>
-                        <p class="text-gray-600">Kolhan University | 2020 - 2022</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Skills Section -->
-    <section id="skills" class="py-16 bg-gray-50">
+    <section id="skills" class="py-10 bg-gray-50">
         <div class="container mx-auto px-4">
             <div class="max-w-3xl mx-auto">
                 <h2 class="text-2xl font-bold mb-8">Technical Skills</h2>
-                
+
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Programming Languages -->
                     <div class="bg-white p-6 rounded-lg shadow-sm" data-aos="fade-up">
@@ -359,14 +347,162 @@
         </div>
     </section>
 
+    <!-- Previous code remains same until Projects Section -->
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-10 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl font-bold mb-8">Featured Projects</h2>
+
+                <!-- Project Grid -->
+                <div class="space-y-8">
+                    <!-- Paatham.us -->
+                    <div class="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+                        data-aos="fade-up">
+                        <div class="flex flex-wrap justify-between items-start mb-4">
+                            <h3 class="text-xl font-semibold text-blue-600">Paatham.us</h3>
+                            <span class="text-sm bg-blue-100 text-blue-800 px-3 py-1 rounded-full">Latest Project</span>
+                        </div>
+                        <p class="text-gray-600 mb-4">Upgraded version of Paatham.com with modern technologies</p>
+                        <div class="mb-4">
+                            <h4 class="font-medium mb-2">Key Features:</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1">
+                                <li>Upgraded from AngularJS to Angular 16 and Laravel 7 to Laravel 8 with PHP 8</li>
+                                <li>Developed core modules: Classes, People, Attendance, and Hostel Management</li>
+                                <li>Implemented Help Center Module for ticket management</li>
+                                <li>Enhanced query optimization and backend performance</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Angular 16</span>
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Laravel 8</span>
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">PHP 8</span>
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">MySQL</span>
+                        </div>
+                    </div>
+
+                    <!-- Paatham.com -->
+                    <div class="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+                        data-aos="fade-up">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-4">Paatham.com</h3>
+                        <p class="text-gray-600 mb-4">Comprehensive school management system</p>
+                        <div class="mb-4">
+                            <h4 class="font-medium mb-2">Key Implementations:</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1">
+                                <li>Subscription Management with email templates and alerts</li>
+                                <li>Student Marksheet management with grade calculations</li>
+                                <li>Hostel Management Module with room allocation</li>
+                                <li>Role-based permission management system</li>
+                                <li>API development for mobile application</li>
+                                <li>Enhanced Payroll Management System</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">AngularJS</span>
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Laravel</span>
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">MySQL</span>
+                        </div>
+                    </div>
+
+                    <!-- FSSAI.org -->
+                    <div class="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+                        data-aos="fade-up">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-4">Food Licensing Registration Services</h3>
+                        <p class="text-gray-600 mb-4">Official platform for FSSAI license registration</p>
+                        <div class="mb-4">
+                            <h4 class="font-medium mb-2">Key Features:</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1">
+                                <li>End-to-end application process for FSSAI licenses</li>
+                                <li>Payment gateway integration</li>
+                                <li>Automated email notification system</li>
+                                <li>User-friendly interface for forms and guidelines</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">PHP</span>
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">MySQL</span>
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Cashfree</span>
+                        </div>
+                    </div>
+
+                    <!-- RTE Jharkhand -->
+                    <div class="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+                        data-aos="fade-up">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-4">School Management System
+                            (rte.jharkhand.gov.in)</h3>
+                        <div class="mb-4">
+                            <h4 class="font-medium mb-2">Contributions:</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1">
+                                <li>Bug fixes and system stability improvements</li>
+                                <li>File management system implementation</li>
+                                <li>Document approval streamlining</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Laravel</span>
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">MySQL</span>
+                        </div>
+                    </div>
+
+                    <!-- Olfant.com -->
+                    <div class="bg-gray-50 rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow"
+                        data-aos="fade-up">
+                        <h3 class="text-xl font-semibold text-blue-600 mb-4">Olfant Corporation</h3>
+                        <div class="mb-4">
+                            <h4 class="font-medium mb-2">Features:</h4>
+                            <ul class="list-disc list-inside text-gray-600 space-y-1">
+                                <li>Flexible pricing model with payment gateway integration</li>
+                                <li>Contact form and job application system</li>
+                                <li>Team section management</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">PHP</span>
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">MySQL</span>
+                            <span class="bg-gray-200 px-3 py-1 rounded-full text-sm">Cashfree</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-10 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="text-2xl font-bold mb-8">Education</h2>
+                <div class="space-y-6">
+                    <div class="bg-gray-50 p-6 rounded-lg" data-aos="fade-up">
+                        <h3 class="font-semibold">Master of Computer Application - MCA (Pursuing)</h3>
+                        <p class="text-gray-600">Sikkim Manipal University | 2023 - 2025</p>
+                    </div>
+                    <div class="bg-gray-50 p-6 rounded-lg" data-aos="fade-up" data-aos-delay="100">
+                        <h3 class="font-semibold">Bachelor of Computer Applications - BCA</h3>
+                        <p class="text-gray-600">Kolhan University | 2020 - 2022</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add this link to navigation -->
+    <script>
+        // Add this to your existing navigation
+        document.querySelector('.md\\:flex').innerHTML += `
+        <a href="#projects" class="text-gray-600 hover:text-blue-600">Projects</a>
+    `;
+    </script>
+
+    <!-- Rest of the previous code remains same -->
+
     <!-- Updated Skills Section with Speedometer -->
-    <section id="skills" class="py-10 bg-white">
+    <!-- <section id="skills" class="py-10 bg-white">
         <div class="container mx-auto px-6">
             <h2 class="text-3xl font-bold text-gray-800 text-center mb-12" data-aos="fade-up">
                 My Skills
             </h2>
-
-            <!-- Speedometer Skills -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-16">
                 <div class="text-center" data-aos="fade-up">
                     <div class="speedometer mx-auto" style="--percentage: 95">
@@ -387,8 +523,6 @@
                     <h3 class="mt-4 font-semibold text-gray-800">Database</h3>
                 </div>
             </div>
-
-            <!-- Programming Tools -->
             <div class="mt-20">
                 <h3 class="text-2xl font-bold text-gray-800 text-center mb-12" data-aos="fade-up">
                     Tools & Technologies
@@ -443,7 +577,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <script>
         new Typed("#typed", {
@@ -458,6 +592,87 @@
             once: true,
             offset: 100,
         });
+    </script>
+    <script>
+         const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas size
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // Optimized arrays using fewer elements
+        const syntax = ['{', '}', '<>', '//', ';', '()', '=>', '::'];
+        const colors = [
+            '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFBE0B',
+            '#FF006E', '#8338EC', '#3A86FF'
+        ];
+
+        class SyntaxDrop {
+            constructor() {
+                this.reset();
+            }
+
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = -20;
+                this.speed = Math.random() * 2 + 1.5; // Slightly slower for better performance
+                this.text = syntax[Math.floor(Math.random() * syntax.length)];
+                this.color = colors[Math.floor(Math.random() * colors.length)];
+                this.size = Math.floor(Math.random() * 15) + 12; // Smaller size range
+                this.opacity = 1;
+            }
+
+            update() {
+                this.y += this.speed;
+                this.opacity = Math.max(0, 1 - (this.y / canvas.height));
+                if (this.y > canvas.height) this.reset();
+            }
+
+            draw() {
+                if (this.opacity > 0.1) { // Only draw if visible enough
+                    ctx.font = `${this.size}px monospace`;
+                    ctx.fillStyle = this.color;
+                    ctx.globalAlpha = this.opacity;
+                    ctx.fillText(this.text, this.x, this.y);
+                }
+            }
+        }
+
+        // Create initial drops - reduced count for better performance
+        const drops = Array.from({ length: 25 }, () => new SyntaxDrop());
+
+        // Optimized animation loop
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear instead of filling
+
+            drops.forEach(drop => {
+                drop.update();
+                drop.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        // More efficient drop management
+        let lastDropTime = 0;
+        const dropInterval = 1500; // Longer interval
+
+        function manageDrop(currentTime) {
+            if (currentTime - lastDropTime > dropInterval && drops.length < 40) {
+                drops.push(new SyntaxDrop());
+                lastDropTime = currentTime;
+            }
+            requestAnimationFrame(manageDrop);
+        }
+
+        // Start animations
+        animate();
+        manageDrop(0);
     </script>
 </body>
 
