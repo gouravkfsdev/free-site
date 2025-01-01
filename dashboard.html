@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Modern Header</title>
+    <style>
+        .dropdown-transition {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .scale-up-transition {
+            transition: transform 0.2s ease;
+        }
+
+        .scale-up-transition:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body class="bg-orange-50">
+    <!-- Top Bar -->
+    <div class="bg-white shadow-sm">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center h-16">
+                <!-- Left Side: Logo and Search -->
+                <div class="flex items-center flex-1">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0">
+                        <a href="https://seoguruzz.com/">
+                            <img src="https://frontends.udemycdn.com/frontends-homepage/staticx/udemy/images/v7/logo-udemy.svg" alt="SEOGURUZZ Logo" style="height: 40px;">
+                        </a>
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div class="ml-6 flex-1 max-w-lg hidden sm:block">
+                        <div class="relative">
+                            <input type="text"
+                                class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-gray-50 transition duration-150"
+                                placeholder="Search...">
+                            <div class="absolute left-3 top-2.5 text-gray-400">
+                                <i class="fas fa-search"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side: Action Buttons -->
+                <div class="flex items-center space-x-6">
+                    <!-- Notification Button -->
+                    <button class="p-2 text-gray-600 hover:text-purple-600 relative scale-up-transition">
+                        <i class="fas fa-bell text-lg"></i>
+                        <span
+                            class="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+                    </button>
+
+                    <!-- Chat Button -->
+                    <button class="p-2 text-gray-600 hover:text-purple-600 relative scale-up-transition">
+                        <i class="fas fa-comment-dots text-lg"></i>
+                        <span
+                            class="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+                    </button>
+
+                    <!-- Profile Dropdown -->
+                    <div class="relative">
+                        <button type="button" class="flex items-center space-x-3 focus:outline-none scale-up-transition"
+                            id="user-menu-button">
+                            <img class="h-9 w-9 rounded-full ring-2 ring-gray-200" src="./IMG_20241230_205159.jpg"
+                                alt="User profile">
+                            <span class="hidden md:block text-sm font-medium text-gray-700">John Doe</span>
+                            <i class="fas fa-chevron-down text-sm text-gray-400 transition-transform duration-200"></i>
+                        </button>
+
+                        <!-- Profile Dropdown Menu -->
+                        <div class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-1 z-50 dropdown-transition"
+                            id="profile-dropdown">
+                            <a href="#"
+                                class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition duration-150">
+                                <i class="fas fa-user mr-2 text-purple-500"></i> My Account
+                            </a>
+                            <a href="#"
+                                class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition duration-150">
+                                <i class="fas fa-cog mr-2 text-purple-500"></i> Settings
+                            </a>
+                            <div class="border-t border-gray-100 my-1"></div>
+                            <a href="#"
+                                class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition duration-150">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <button type="button"
+                        class="md:hidden p-2 text-gray-600 hover:text-purple-600 transition duration-150"
+                        id="mobile-menu-button">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Horizontal Menu Bar -->
+    <nav class="bg-purple-500 border-b shadow-sm hidden md:block">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex space-x-1">
+                <!-- Menu Items -->
+                <div class="relative group" id="dashboard-menu">
+                    <button
+                        class="flex items-center space-x-2 px-3 py-4 text-sm font-medium text-white group-hover:text-white-800 focus:outline-none scale-up-transition">
+                        <i class="fas fa-th-large"></i>
+                        <span>Dashboard</span>
+                        <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-200"></i>
+                    </button>
+                    <div
+                        class="hidden group-hover:block absolute left-0 mt-0 w-48 bg-white rounded-b-lg shadow-lg py-1 z-50">
+                        <a href="#"
+                            class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 transition duration-150">
+                            <i class="fas fa-chart-line mr-2 text-purple-600"></i> Analytics
+                        </a>
+                        <a href="#"
+                            class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 transition duration-150">
+                            <i class="fas fa-project-diagram mr-2 text-purple-600"></i> Projects
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Repeat similar structure for other menu items -->
+                <!-- Users Menu -->
+                <div class="relative group">
+                    <button
+                        class="flex items-center space-x-2 px-3 py-4 text-sm font-medium text-white group-hover:text-white-800 focus:outline-none scale-up-transition">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                        <i class="fas fa-chevron-down text-xs ml-1 transition-transform duration-200"></i>
+                    </button>
+                    <div
+                        class="hidden group-hover:block absolute left-0 mt-0 w-48 bg-white rounded-b-lg shadow-lg py-1 z-50">
+                        <a href="#"
+                            class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 transition duration-150">
+                            <i class="fas fa-user-plus mr-2 text-purple-600"></i> Add User
+                        </a>
+                        <a href="#"
+                            class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-purple-50 transition duration-150">
+                            <i class="fas fa-user-friends mr-2 text-purple-600"></i> User List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="hidden md:hidden" id="mobile-menu">
+        <div class="bg-white shadow-lg rounded-b-lg mx-4 mt-2">
+            <!-- Search in Mobile -->
+            <div class="p-4 border-b">
+                <div class="relative">
+                    <input type="text"
+                        class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-gray-50"
+                        placeholder="Search...">
+                    <div class="absolute left-3 top-2.5 text-gray-400">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Menu Items -->
+            <div class="space-y-1 px-3 py-2">
+                <!-- Dashboard Section -->
+                <div class="mobile-dropdown">
+                    <button
+                        class="w-full flex justify-between items-center px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 rounded-lg transition duration-150"
+                        onclick="toggleMobileDropdown(this)">
+                        <span class="flex items-center">
+                            <i class="fas fa-th-large mr-2 text-purple-600"></i>
+                            Dashboard
+                        </span>
+                        <i class="fas fa-chevron-down text-sm transition-transform duration-200"></i>
+                    </button>
+                    <div class="hidden pl-8 space-y-1">
+                        <a href="#"
+                            class="block px-3 py-2 text-sm text-gray-700 hover:bg-purple-50 rounded-lg transition duration-150">
+                            <i class="fas fa-chart-line mr-2 text-purple-600"></i> Analytics
+                        </a>
+                        <a href="#"
+                            class="block px-3 py-2 text-sm text-gray-700 hover:bg-purple-50 rounded-lg transition duration-150">
+                            <i class="fas fa-project-diagram mr-2 text-purple-600"></i> Projects
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Users Section -->
+                <div class="mobile-dropdown">
+                    <button
+                        class="w-full flex justify-between items-center px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 rounded-lg transition duration-150"
+                        onclick="toggleMobileDropdown(this)">
+                        <span class="flex items-center">
+                            <i class="fas fa-users mr-2 text-purple-600"></i>
+                            Users
+                        </span>
+                        <i class="fas fa-chevron-down text-sm transition-transform duration-200"></i>
+                    </button>
+                    <div class="hidden pl-8 space-y-1">
+                        <a href="#"
+                            class="block px-3 py-2 text-sm text-gray-700 hover:bg-purple-50 rounded-lg transition duration-150">
+                            <i class="fas fa-user-plus mr-2 text-purple-600"></i> Add User
+                        </a>
+                        <a href="#"
+                            class="block px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-lg transition duration-150">
+                            <i class="fas fa-user-friends mr-2 text-purple-600"></i> User List
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Welcome Section -->
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-800">Welcome back, John! 👋</h1>
+            <p class="text-gray-600">Here's what's happening with your projects today.</p>
+        </div>
+
+        <!-- Stats Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Total Users Card -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500">Total Users</p>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-1">2,543</h3>
+                        <p class="text-sm text-green-600 flex items-center">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            12.5% increase
+                        </p>
+                    </div>
+                    <div class="bg-purple-100 rounded-lg p-3">
+                        <i class="fas fa-users text-purple-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Revenue Card -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500">Total Revenue</p>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-1">$45,2K</h3>
+                        <p class="text-sm text-green-600 flex items-center">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            8.2% increase
+                        </p>
+                    </div>
+                    <div class="bg-orange-100 rounded-lg p-3">
+                        <i class="fas fa-dollar-sign text-orange-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Active Projects Card -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500">Active Projects</p>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-1">95</h3>
+                        <p class="text-sm text-red-600 flex items-center">
+                            <i class="fas fa-arrow-down mr-1"></i>
+                            3.1% decrease
+                        </p>
+                    </div>
+                    <div class="bg-purple-100 rounded-lg p-3">
+                        <i class="fas fa-project-diagram text-purple-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Task Completion Card -->
+            <div class="bg-white rounded-xl shadow-sm p-6 border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500">Task Completion</p>
+                        <h3 class="text-2xl font-bold text-gray-800 mb-1">89%</h3>
+                        <p class="text-sm text-green-600 flex items-center">
+                            <i class="fas fa-arrow-up mr-1"></i>
+                            5.4% increase
+                        </p>
+                    </div>
+                    <div class="bg-orange-100 rounded-lg p-3">
+                        <i class="fas fa-tasks text-orange-600 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Activity Overview -->
+        <div class="bg-white rounded-xl shadow-sm p-6 mb-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-lg font-bold text-gray-800">Recent Activity</h2>
+                <button class="text-purple-600 hover:text-purple-700 text-sm font-medium">View All</button>
+            </div>
+            <div class="space-y-6">
+                <!-- Activity Item -->
+                <div class="flex items-center">
+                    <div class="bg-purple-100 rounded-full p-3 mr-4">
+                        <i class="fas fa-user-plus text-purple-600"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-medium text-gray-800">New user registered</p>
+                        <p class="text-sm text-gray-500">John Smith created a new account</p>
+                    </div>
+                    <span class="text-sm text-gray-500">2 min ago</span>
+                </div>
+
+                <!-- Activity Item -->
+                <div class="flex items-center">
+                    <div class="bg-orange-100 rounded-full p-3 mr-4">
+                        <i class="fas fa-dollar-sign text-orange-600"></i>
+                    </div>
+                    <div class="flex-1">
+                        <p class="text-sm font-medium text-gray-800">New sale recorded</p>
+                        <p class="text-sm text-gray-500">Project subscription purchased</p>
+                    </div>
+                    <span class="text-sm text-gray-500">15 min ago</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl shadow-sm p-6 text-white">
+                <h3 class="font-bold mb-4">Quick Report</h3>
+                <p class="text-purple-100 mb-4">Generate a new report from your latest data</p>
+                <button
+                    class="bg-white text-purple-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-50 transition-colors">
+                    Generate Now
+                </button>
+            </div>
+
+            <div class="bg-gradient-to-r from-orange-500 to-orange-600 rounded-xl shadow-sm p-6 text-white">
+                <h3 class="font-bold mb-4">Add New Project</h3>
+                <p class="text-purple-100 mb-4">Create a new project and assign team members</p>
+                <button
+                    class="bg-white text-purple-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-50 transition-colors">
+                    Create Project
+                </button>
+            </div>
+
+            <div class="bg-gradient-to-r from-purple-500 to-purple-600 rounded-xl shadow-sm p-6 text-white">
+                <h3 class="font-bold mb-4">Team Meeting</h3>
+                <p class="text-purple-100 mb-4">Schedule a new team meeting</p>
+                <button
+                    class="bg-white text-purple-600 px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-50 transition-colors">
+                    Schedule Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto pt-4 py-8">
+        <!-- Table Header Controls -->
+        <div class="bg-white p-4 rounded-t-lg shadow">
+            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <!-- Entries Per Page -->
+                <div class="flex items-center space-x-2">
+                    <span class="text-gray-600">Show</span>
+                    <select class="border rounded px-2 py-1">
+                        <option>10</option>
+                        <option>20</option>
+                        <option>50</option>
+                    </select>
+                    <span class="text-gray-600">entries</span>
+                </div>
+
+                <!-- Search and Filter Section -->
+                <div class="flex flex-wrap gap-4 items-center">
+                    <!-- Search -->
+                    <div class="flex items-center space-x-2">
+                        <input type="text"
+                            class="w-full px-2 py-1 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent bg-gray-50 transition duration-150"
+                            placeholder="Search...">
+                        <div class="absolute left-3 top-2.5 text-gray-400">
+                        </div>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="flex items-center space-x-2">
+                        <select class="border rounded px-2 py-1">
+                            <option>Filter Status</option>
+                            <option>Active</option>
+                            <option>Inactive</option>
+                        </select>
+                        <select class="border rounded px-2 py-1">
+                            <option>Filter Category</option>
+                            <option>Category 1</option>
+                            <option>Category 2</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Table Container -->
+        <div class="overflow-x-auto bg-white shadow rounded-b-lg">
+            <table class="min-w-full table-auto">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            ID
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Name
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Status
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Category
+                        </th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Actions
+                        </th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <!-- Sample Row 1 -->
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">1</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Item One</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span
+                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                Active
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">Category 1</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-purple-600 hover:text-purple-900 mr-2">Edit</button>
+                            <button class="text-red-600 hover:text-red-900">Delete</button>
+                        </td>
+                    </tr>
+                    <!-- Sample Row 2 -->
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">2</td>
+                        <td class="px-6 py-4 whitespace-nowrap">Item Two</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <span
+                                class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                                Inactive
+                            </span>
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap">Category 2</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                            <button class="text-purple-600 hover:text-purple-900 mr-2">Edit</button>
+                            <button class="text-red-600 hover:text-red-900">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        <div
+            class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6 mt-4 rounded-lg shadow">
+            <div class="flex-1 flex justify-between sm:hidden">
+                <button
+                    class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    Previous
+                </button>
+                <button
+                    class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+                    Next
+                </button>
+            </div>
+            <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                <div>
+                    <p class="text-sm text-gray-700">
+                        Showing <span class="font-medium">1</span> to <span class="font-medium">10</span> of <span
+                            class="font-medium">97</span> results
+                    </p>
+                </div>
+                <div>
+                    <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                        <button
+                            class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            Previous
+                        </button>
+                        <button
+                            class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            1
+                        </button>
+                        <button
+                            class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            2
+                        </button>
+                        <button
+                            class="relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50">
+                            3
+                        </button>
+                        <button
+                            class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                            Next
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript for Toggles -->
+    <script>
+        // Profile Dropdown Toggle
+        const userMenuButton = document.getElementById('user-menu-button');
+        const profileDropdown = document.getElementById('profile-dropdown');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        userMenuButton.addEventListener('click', () => {
+            profileDropdown.classList.toggle('hidden');
+            userMenuButton.querySelector('.fa-chevron-down').classList.toggle('rotate-180');
+        });
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenuButton.querySelector('.fa-bars').classList.toggle('text-purple-600');
+        });
+
+        // Mobile dropdown toggle function
+        function toggleMobileDropdown(button) {
+            const dropdownContent = button.nextElementSibling;
+            const icon = button.querySelector('.fa-chevron-down');
+
+            dropdownContent.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+
+            // Close other dropdowns
+            const allDropdowns = document.querySelectorAll('.mobile-dropdown .hidden');
+            const allIcons = document.querySelectorAll('.mobile-dropdown .rotate-180');
+
+            allDropdowns.forEach(dropdown => {
+                if (dropdown !== dropdownContent && !dropdown.classList.contains('hidden')) {
+                    dropdown.classList.add('hidden');
+                }
+            });
+
+            allIcons.forEach(dropdownIcon => {
+                if (dropdownIcon !== icon && dropdownIcon.classList.contains('rotate-180')) {
+                    dropdownIcon.classList.remove('rotate-180');
+                }
+            });
+        }
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!userMenuButton.contains(event.target) && !profileDropdown.contains(event.target)) {
+                profileDropdown.classList.add('hidden');
+                userMenuButton.querySelector('.fa-chevron-down').classList.remove('rotate-180');
+            }
+        });
+    </script>
+</body>
+
+</html>
