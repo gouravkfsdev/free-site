@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Typing Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            min-width: 200px;
+            z-index: 1;
+        }
+        .dropdown.active .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+<body class="min-h-screen transition-colors duration-300" x-data="{ darkMode: false }" :class="darkMode ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'">
+    <div class="max-w-6xl mx-auto p-6">
+        <!-- Header with Dropdowns -->
+        <header class="flex justify-between items-center mb-6">
+            <div class="flex items-center space-x-4">
+                <div class="text-blue-500 font-bold text-xl hover:text-blue-600 transition-colors cursor-pointer">
+                    monkeysite
+                </div>
+                <div class="flex space-x-3">
+                    <div class="dropdown">
+                        <button onclick="toggleDropdown('crownMenu')" class="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-crown"></i>
+                        </button>
+                        <div id="crownMenu" class="dropdown-content mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                            <div class="p-2 text-sm">
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Premium Features</a>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Upgrade Account</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button onclick="toggleDropdown('infoMenu')" class="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-info-circle"></i>
+                        </button>
+                        <div id="infoMenu" class="dropdown-content mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                            <div class="p-2 text-sm">
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">About</a>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">FAQ</a>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Support</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dropdown">
+                        <button onclick="toggleDropdown('settingsMenu')" class="p-1.5 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                            <i class="fas fa-cog"></i>
+                        </button>
+                        <div id="settingsMenu" class="dropdown-content mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                            <div class="p-2 text-sm">
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Preferences</a>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Keyboard Layout</a>
+                                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">Language</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <!-- Theme Toggle Dropdown -->
+                <div class="dropdown">
+                    <button onclick="toggleDropdown('themeMenu')" class="flex items-center space-x-2 px-3 py-1.5 rounded-full bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors text-sm">
+                        <i class="fas fa-sun dark:hidden"></i>
+                        <i class="fas fa-moon hidden dark:inline"></i>
+                        <span class="text-xs font-medium">sewing in light</span>
+                        <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                    </button>
+                    <div id="themeMenu" class="dropdown-content mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                        <div class="p-2 text-sm">
+                            <button onclick="setTheme('light')" class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                                <i class="fas fa-sun mr-2"></i> Light Mode
+                            </button>
+                            <button onclick="setTheme('dark')" class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                                <i class="fas fa-moon mr-2"></i> Dark Mode
+                            </button>
+                            <button onclick="setTheme('system')" class="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                                <i class="fas fa-desktop mr-2"></i> System Default
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications Dropdown -->
+                <div class="dropdown">
+                    <button onclick="toggleDropdown('notificationMenu')" class="text-blue-500">
+                        <i class="fas fa-bell"></i>
+                    </button>
+                    <div id="notificationMenu" class="dropdown-content mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                        <div class="p-2 text-sm">
+                            <div class="px-4 py-2 text-gray-500 dark:text-gray-400">No new notifications</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Account Dropdown -->
+                <div class="dropdown">
+                    <button onclick="toggleDropdown('userMenu')" class="flex items-center bg-blue-100 dark:bg-blue-900 px-3 py-1.5 rounded-full">
+                        <i class="fas fa-user text-blue-600 dark:text-blue-400 mr-2"></i>
+                        <span class="text-blue-600 dark:text-blue-400 font-medium text-sm">KFSDEVELOPER</span>
+                        <i class="fas fa-chevron-down ml-2 text-blue-600 dark:text-blue-400 text-xs"></i>
+                    </button>
+                    <div id="userMenu" class="dropdown-content mt-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+                        <div class="p-2 text-sm">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                                <i class="fas fa-user-circle mr-2"></i> Profile
+                            </a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                                <i class="fas fa-cog mr-2"></i> Account Settings
+                            </a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                                <i class="fas fa-chart-line mr-2"></i> Statistics
+                            </a>
+                            <div class="border-t border-gray-200 dark:border-gray-700 my-1"></div>
+                            <a href="#" class="block px-4 py-2 text-red-500 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md">
+                                <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+<div class="max-w-6xl mx-auto p-6">
+    
+
+        <!-- Compact Settings Bar -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-2 mb-6 shadow-lg">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2 px-2 text-xs">
+                    <button class="px-2 py-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-at mr-1"></i>punctuation
+                    </button>
+                    <button class="px-2 py-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-hashtag mr-1"></i>numbers
+                    </button>
+                    <button class="px-2 py-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-clock mr-1"></i>time
+                    </button>
+                    <button class="px-2 py-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-font mr-1"></i>words
+                    </button>
+                    <button class="px-2 py-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-quote-right mr-1"></i>quote
+                    </button>
+                    <button class="px-2 py-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-dharmachakra mr-1"></i>zen
+                    </button>
+                    <button class="px-2 py-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-bolt mr-1"></i>custom
+                    </button>
+                </div>
+                <div class="flex items-center gap-1 px-2">
+                    <button class="w-8 h-6 text-xs rounded-full bg-blue-100 dark:bg-blue-900 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">15</button>
+                    <button class="w-8 h-6 text-xs rounded-full bg-blue-100 dark:bg-blue-900 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">30</button>
+                    <button class="w-8 h-6 text-xs rounded-full bg-blue-100 dark:bg-blue-900 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">60</button>
+                    <button class="w-8 h-6 text-xs rounded-full bg-blue-100 dark:bg-blue-900 hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors">120</button>
+                    <button class="w-6 h-6 text-xs rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rest of the content remains the same -->
+        <div class="flex justify-center mb-6">
+            <button class="px-4 py-1.5 text-sm rounded-full bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors shadow-md">
+                <span class="flex items-center space-x-2">
+                    <i class="fas fa-globe"></i>
+                    <span class="font-medium">english</span>
+                </span>
+            </button>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-2xl p-8 mb-8 shadow-lg">
+            <p class="text-2xl leading-relaxed opacity-80">
+                look again should show leave problem even begin at system last then also word people after like take follow such child for interest move go they leave against many set must you general
+            </p>
+        </div>
+
+        <!-- Command Bar -->
+        <div class="flex justify-center flex-wrap gap-6 mb-8 text-xs opacity-75">
+            <div class="flex items-center space-x-2">
+                <kbd class="px-2 py-1 rounded-lg bg-white dark:bg-gray-800 shadow-sm">tab</kbd>
+                <span>+</span>
+                <kbd class="px-2 py-1 rounded-lg bg-white dark:bg-gray-800 shadow-sm">enter</kbd>
+                <span>- restart test</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <kbd class="px-2 py-1 rounded-lg bg-white dark:bg-gray-800 shadow-sm">ctrl</kbd>
+                <span>or</span>
+                <kbd class="px-2 py-1 rounded-lg bg-white dark:bg-gray-800 shadow-sm">cmd</kbd>
+                <span>+</span>
+                <kbd class="px-2 py-1 rounded-lg bg-white dark:bg-gray-800 shadow-sm">shift</kbd>
+                <span>+</span>
+                <kbd class="px-2 py-1 rounded-lg bg-white dark:bg-gray-800 shadow-sm">p</kbd>
+                <span>- command line</span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="flex flex-wrap justify-between items-center text-xs opacity-75">
+            <div class="flex flex-wrap gap-4">
+                <a href="#" class="hover:text-blue-500 transition-colors">contact</a>
+                <a href="#" class="hover:text-blue-500 transition-colors">support</a>
+                <a href="#" class="hover:text-blue-500 transition-colors">github</a>
+                <a href="#" class="hover:text-blue-500 transition-colors">discord</a>
+                <a href="#" class="hover:text-blue-500 transition-colors">twitter</a>
+                <a href="#" class="hover:text-blue-500 transition-colors">terms</a>
+                <a href="#" class="hover:text-blue-500 transition-colors">security</a>
+                <a href="#" class="hover:text-blue-500 transition-colors">privacy</a>
+            </div>
+            <div class="flex items-center space-x-2 text-xs">
+                <span>v24.52.0</span>
+            </div>
+        </footer>
+    </div>
+
+    </div>
+
+    <script>
+        // Dropdown functionality
+        function toggleDropdown(menuId) {
+            const allDropdowns = document.querySelectorAll('.dropdown');
+            allDropdowns.forEach(dropdown => {
+                if (dropdown.contains(document.getElementById(menuId))) {
+                    dropdown.classList.toggle('active');
+                } else {
+                    dropdown.classList.remove('active');
+                }
+            });
+        }
+
+        // Close dropdowns when clicking outside
+        window.addEventListener('click', function(event) {
+            const dropdowns = document.querySelectorAll('.dropdown');
+            dropdowns.forEach(dropdown => {
+                if (!dropdown.contains(event.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
+        });
+
+        // Theme functionality
+        function setTheme(theme) {
+            const html = document.documentElement;
+            if (theme === 'dark') {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+            } else if (theme === 'light') {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                localStorage.removeItem('theme');
+                if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    html.classList.add('dark');
+                } else {
+                    html.classList.remove('dark');
+                }
+            }
+        }
+
+        // Initial theme setup
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</body>
+</html>
