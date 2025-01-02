@@ -21,100 +21,73 @@
             transform: scale(1.05);
         }
 
-        /* Loader Animations */
-        @keyframes flip {
-            0% {
-                transform: rotateX(-30deg) rotateY(0deg) rotateZ(0deg);
-            }
-
-            50% {
-                transform: rotateX(360deg) rotateY(180deg) rotateZ(180deg);
-            }
-
-            100% {
-                transform: rotateX(-30deg) rotateY(360deg) rotateZ(360deg);
-            }
-        }
-
-        @keyframes dots {
-
-            0%,
-            20% {
-                content: '.';
-            }
-
-            40% {
-                content: '..';
-            }
-
-            60% {
-                content: '...';
-            }
-
-            80%,
-            100% {
-                content: '....';
-            }
-        }
-
-        .loader-container {
-            perspective: 1000px;
+        /* Loader Styles */
+        .loader-overlay {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(243, 244, 246, 0.9);
             z-index: 50;
         }
 
-        .cube {
-            transform-style: preserve-3d;
-            animation: flip 5s linear infinite;
-            position: relative;
-            width: 30px;
-            height: 30px;
+        @keyframes spin-pulse {
+            0% { 
+                transform: rotate(0deg); 
+                border-color: #8B5CF6 #8B5CF6 transparent transparent;
+            }
+            50% { 
+                transform: rotate(180deg);
+                border-color: #EC4899 #EC4899 transparent transparent;
+            }
+            100% { 
+                transform: rotate(360deg);
+                border-color: #8B5CF6 #8B5CF6 transparent transparent;
+            }
         }
 
-        .face {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border: 2px solid #4F46E5;
-            background: rgba(79, 70, 229, 0.1);
-            backface-visibility: visible;
+        @keyframes reverse-spin {
+            0% { transform: rotate(360deg); }
+            100% { transform: rotate(0deg); }
         }
 
-        .front {
-            transform: translateZ(25px);
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
         }
 
-        .back {
-            transform: translateZ(-25px);
+        .loader-ring {
+            animation: spin-pulse 2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
         }
 
-        .right {
-            transform: translateX(25px) rotateY(90deg);
+        .loader-ring-inner {
+            animation: reverse-spin 1.5s linear infinite;
         }
 
-        .left {
-            transform: translateX(-25px) rotateY(-90deg);
+        .pulse-dot {
+            animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
 
-        .top {
-            transform: translateY(-25px) rotateX(90deg);
+        @keyframes slide-up {
+            0% { transform: translateY(100%); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
         }
 
-        .bottom {
-            transform: translateY(25px) rotateX(-90deg);
+        .loading-text {
+            animation: slide-up 0.5s ease forwards;
         }
 
-        .loading::after {
-            content: '';
-            animation: dots 5s infinite;
+        @keyframes fade-out {
+            from { opacity: 1; }
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        .fade-out {
+            animation: fade-out 0.5s ease forwards;
         }
     </style>
 </head>
@@ -122,19 +95,33 @@
 <body class="bg-gray-100">
 
     <!-- Loader Overlay -->
-    <div class="loader-container">
-        <div class="flex flex-col items-center">
-            <div class="cube">
-                <div class="face front"></div>
-                <div class="face back"></div>
-                <div class="face right"></div>
-                <div class="face left"></div>
-                <div class="face top"></div>
-                <div class="face bottom"></div>
+    <div class="loader-overlay">
+        <div class="flex flex-col items-center gap-8">
+            <!-- Main Loader Circle -->
+            <div class="relative w-32 h-32">
+                <!-- Outer spinning ring -->
+                <div class="loader-ring absolute w-full h-full border-4 rounded-full border-t-purple-500 border-r-purple-500 border-b-transparent border-l-transparent"></div>
+                
+                <!-- Middle ring -->
+                <div class="loader-ring-inner absolute w-24 h-24 top-4 left-4 border-4 rounded-full border-t-pink-500 border-r-pink-500 border-b-transparent border-l-transparent"></div>
+                
+                <!-- Center pulsing dot -->
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div class="pulse-dot w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg"></div>
+                </div>
             </div>
-            <div class="mt-4 text-indigo-600 text-xl font-mono">
-                <span>Loading</span>
-                <span class="loading"></span>
+
+            <!-- Loading Text -->
+            <div class="text-center loading-text">
+                <h2 class="text-2xl font-bold bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">Loading</h2>
+                <p class="text-gray-500 mt-2">Please wait a moment...</p>
+            </div>
+
+            <!-- Small Decorative Dots -->
+            <div class="flex gap-2">
+                <div class="w-2 h-2 bg-purple-500 rounded-full pulse-dot"></div>
+                <div class="w-2 h-2 bg-pink-500 rounded-full pulse-dot" style="animation-delay: 0.2s"></div>
+                <div class="w-2 h-2 bg-purple-500 rounded-full pulse-dot" style="animation-delay: 0.4s"></div>
             </div>
         </div>
     </div>
@@ -675,10 +662,15 @@
         });
     </script>
 
+    <!-- Script to hide loader -->
     <script>
-        window.addEventListener('load', function () {
-            setTimeout(function () {
-                document.querySelector('.loader-container').style.display = 'none';
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loader = document.querySelector('.loader-overlay');
+                loader.classList.add('fade-out');
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 500);
             }, 2000); // Hide after 2 seconds
         });
     </script>
