@@ -121,7 +121,7 @@
             dayDiv.classList.add('invisible');
           } else {
             const date = new Date(year, 0, ++dayCount);
-            const operationCount = operations[dayCount - 5];
+            const operationCount = operations[dayCount - 1];
             dayDiv.setAttribute('data-date', date.toDateString());
             dayDiv.setAttribute('data-count', operationCount);
           }
