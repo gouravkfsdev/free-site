@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="text-blue-400 font-mono text-xl">developer_portfolio</div>
+            <div class="space-x-6">
+                <a href="#about" class="text-gray-300 hover:text-blue-400">about()</a>
+                <a href="#projects" class="text-gray-300 hover:text-blue-400">projects()</a>
+                <a href="#contact" class="text-gray-300 hover:text-blue-400">contact()</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="bg-gray-800 rounded-lg p-8 shadow-xl">
+            <div class="flex items-center mb-4">
+                <div class="flex space-x-2">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                </div>
+                <span class="ml-4 text-gray-400 font-mono">portfolio.php</span>
+            </div>
+            
+            <pre class="font-mono text-sm md:text-base"><code class="language-php">
+                class Developer extends Professional {
+                    
+                    public $name = "Your Name";
+                    public $title = "Full Stack Developer";
+                    
+                    public function getSkills() {
+                        return [
+                            "frontend" => ["HTML", "CSS", "JavaScript"],
+                            "backend" => ["PHP", "Node.js", "Python"],
+                            "database" => ["MySQL", "MongoDB"]
+                        ];
+                    }
+                
+                    public function getCurrentProject() {
+                        return "Building amazing web applications";
+                    }
+                }
+            </code></pre>
+        </div>
+    </div>
+
+    <!-- Projects Section -->
+    <div class="container mx-auto px-4 py-8">
+        <h2 class="text-2xl font-mono text-blue-400 mb-8">Recent Projects</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Project Card 1 -->
+            <div class="bg-gray-800 rounded-lg p-6 hover:shadow-xl transition duration-300">
+                <div class="text-pink-400 font-mono mb-2">class ProjectOne extends Application {</div>
+                <h3 class="text-xl text-blue-300 mb-2">Project Title</h3>
+                <p class="text-gray-400 mb-4">Project description goes here. Built with modern technologies.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-blue-400 hover:text-blue-300">view_demo()</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-300">source_code()</a>
+                </div>
+                <div class="text-pink-400 font-mono mt-2">}</div>
+            </div>
+
+            <!-- Project Card 2 -->
+            <div class="bg-gray-800 rounded-lg p-6 hover:shadow-xl transition duration-300">
+                <div class="text-pink-400 font-mono mb-2">class ProjectTwo extends Application {</div>
+                <h3 class="text-xl text-blue-300 mb-2">Another Project</h3>
+                <p class="text-gray-400 mb-4">Another amazing project showcasing your skills.</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-blue-400 hover:text-blue-300">view_demo()</a>
+                    <a href="#" class="text-blue-400 hover:text-blue-300">source_code()</a>
+                </div>
+                <div class="text-pink-400 font-mono mt-2">}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="container mx-auto px-4 py-16">
+        <div class="bg-gray-800 rounded-lg p-8">
+            <pre class="font-mono"><code class="language-php">
+public function contact() {
+    return [
+        "email" => "your.email@example.com",
+        "github" => "github.com/yourusername",
+        "linkedin" => "linkedin.com/in/yourusername"
+    ];
+}
+            </code></pre>
+        </div>
+    </div>
+
+    <footer class="bg-gray-800 py-8 mt-16">
+        <div class="container mx-auto px-4 text-center text-gray-400 font-mono">
+            return "© " . date("Y") . " All rights reserved";
+        </div>
+    </footer>
+</body>
+</html>

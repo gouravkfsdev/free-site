@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Annual Activity Calendar</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 min-h-screen p-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="bg-white rounded-xl shadow-lg p-8">
+      <h1 class="text-3xl font-bold text-gray-800 mb-8">Annual Activity Calendar - 2025</h1>
+
+      <div class="calendar-container space-y-6">
+        <!-- Week days labels -->
+        <div class="flex space-x-0.5">
+          <div class="w-4 text-xs text-gray-500">S</div>
+          <div class="w-4 text-xs text-gray-500">M</div>
+          <div class="w-4 text-xs text-gray-500">T</div>
+          <div class="w-4 text-xs text-gray-500">W</div>
+          <div class="w-4 text-xs text-gray-500">T</div>
+          <div class="w-4 text-xs text-gray-500">F</div>
+          <div class="w-4 text-xs text-gray-500">S</div>
+        </div>
+
+        <div id="calendar" class="flex flex-wrap gap-4"></div>
+
+        <!-- Legend -->
+        <div class="flex items-center space-x-2 mt-6">
+          <span class="text-sm text-gray-600">Less</span>
+          <div class="w-4 h-4 bg-gray-200 rounded"></div>
+          <div class="w-4 h-4 bg-purple-200 rounded"></div>
+          <div class="w-4 h-4 bg-purple-400 rounded"></div>
+          <div class="w-4 h-4 bg-purple-600 rounded"></div>
+          <div class="w-4 h-4 bg-purple-800 rounded"></div>
+          <span class="text-sm text-gray-600">More</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const generateCalendar = () => {
+      const calendar = document.getElementById('calendar');
+      calendar.innerHTML = '';
+
+      const year = 2025;
+      const operations = Array.from({ length: 365 }, () => Math.floor(Math.random() * 5));
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      let dayCount = 0;
+
+      // Tooltip setup
+      const tooltip = document.createElement('div');
+      tooltip.className = 'absolute bg-gray-800 text-white px-2 py-1 text-xs rounded z-10 hidden';
+      document.body.appendChild(tooltip);
+
+      const showTooltip = (e, date, count) => {
+        tooltip.textContent = `${date} - ${count} operations`;
+        tooltip.style.left = `${e.pageX + 10}px`;
+        tooltip.style.top = `${e.pageY + 10}px`;
+        tooltip.classList.remove('hidden');
+      };
+
+      const hideTooltip = () => {
+        tooltip.classList.add('hidden');
+      };
+
+      // Create month containers
+      months.forEach((month, monthIndex) => {
+        const monthContainer = document.createElement('div');
+        monthContainer.className = 'flex flex-col space-y-2';
+
+        // Month label
+        const monthLabel = document.createElement('div');
+        monthLabel.className = 'text-sm font-medium text-gray-700';
+        monthLabel.textContent = month;
+        monthContainer.appendChild(monthLabel);
+
+        // Days container
+        const daysContainer = document.createElement('div');
+        daysContainer.className = 'flex flex-col gap-0.5';
+
+        const firstDayOfMonth = new Date(year, monthIndex, 1).getDay();
+        const daysInMonth = new Date(year, monthIndex + 1, 0).getDate();
+        let weekRow = document.createElement('div');
+        weekRow.className = 'flex gap-0.5';
+
+        // Add empty days for the first week
+        for (let i = 0; i < firstDayOfMonth; i++) {
+          const emptyDay = document.createElement('div');
+          emptyDay.className = 'w-4 h-4 opacity-0';
+          weekRow.appendChild(emptyDay);
+        }
+
+        // Add days of the month
+        for (let day = 1; day <= daysInMonth; day++) {
+          const currentDay = document.createElement('div');
+          const operationCount = operations[dayCount++];
+
+          const bgColor = [
+            'bg-gray-200',
+            'bg-purple-200',
+            'bg-purple-200',
+            'bg-purple-400',
+            'bg-purple-600',
+            'bg-purple-600',
+            'bg-purple-800',
+            'bg-purple-800'
+          ][operationCount];
+
+          currentDay.className = `w-4 h-4 ${bgColor} rounded hover:ring-2 hover:ring-offset-2 hover:ring-purple-500 transition-all cursor-pointer`;
+          const dayName = dayNames[new Date(year, monthIndex, day).getDay()];
+          const dateText = `${dayName}, ${month} ${day}, ${year}`;
+          currentDay.dataset.date = dateText;
+          currentDay.dataset.count = operationCount;
+
+          currentDay.addEventListener('mouseenter', (e) => showTooltip(e, dateText, operationCount));
+          currentDay.addEventListener('mouseleave', hideTooltip);
+
+          weekRow.appendChild(currentDay);
+
+          // Start new week row if needed
+          if ((firstDayOfMonth + day) % 7 === 0) {
+            daysContainer.appendChild(weekRow);
+            weekRow = document.createElement('div');
+            weekRow.className = 'flex gap-0.5';
+          }
+        }
+
+        // Add remaining week row if not empty
+        if (weekRow.children.length > 0) {
+          daysContainer.appendChild(weekRow);
+        }
+
+        monthContainer.appendChild(daysContainer);
+        calendar.appendChild(monthContainer);
+      });
+    };
+
+    generateCalendar();
+
+  </script>
+</body>
+
+</html>
