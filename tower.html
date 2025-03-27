@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower of Hanoi Solver</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #1a1a2e;
+            color: #e94560;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        canvas {
+            background-color: #16213e;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        button {
+            background-color: #0f3460;
+            color: #e94560;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        #moveCounter, #diskCounter {
+            color: #e94560;
+            font-size: 1.2rem;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tower of Hanoi</h1>
+    <canvas id="hanoiCanvas" width="800" height="500"></canvas>
+    <div id="moveCounter">Moves: 0</div>
+    <div id="diskCounter">Disks: 0</div>
+    <div class="controls">
+        <button onclick="game.initializeDisks()">Randomize</button>
+        <button onclick="game.solveAutomatically()">Auto Solve</button>
+        <button onclick="game.addDisk()">Add Disk</button>
+        <button onclick="game.removeDisk()">Remove Disk</button>
+    </div>
+
+    <script>
+        class TowerOfHanoi {
+            constructor() {
+                this.canvas = document.getElementById('hanoiCanvas');
+                this.ctx = this.canvas.getContext('2d');
+                this.moveCounter = document.getElementById('moveCounter');
+                this.diskCounter = document.getElementById('diskCounter');
+                
+                this.rods = [200, 400, 600];
+                this.disks = [];
+                this.moves = 0;
+                this.rodHeight = 300;
+                this.rodWidth = 10;
+                this.draggedDisk = null;
+                this.isAnimating = false;
+                this.moveQueue = [];
+
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                this.canvas.addEventListener('mousedown', this.handleMouseDown.bind(this));
+                this.canvas.addEventListener('mousemove', this.handleMouseMove.bind(this));
+                this.canvas.addEventListener('mouseup', this.handleMouseUp.bind(this));
+            }
+
+            handleMouseDown(e) {
+                if (this.isAnimating) return;
+                
+                const mouseX = e.offsetX;
+                const mouseY = e.offsetY;
+                
+                for (let i = this.disks.length - 1; i >= 0; i--) {
+                    const disk = this.disks[i];
+                    const rodX = this.rods[disk.rod];
+                    const y = 380 - disk.position * 25;
+                    
+                    if (this.isPointInDisk(mouseX, mouseY, rodX, y, disk)) {
+                        this.draggedDisk = disk;
+                        break;
+                    }
+                }
+            }
+
+            handleMouseMove(e) {
+                if (!this.draggedDisk || this.isAnimating) return;
+                
+                this.draggedDisk.x = e.offsetX - this.draggedDisk.width / 2;
+                this.draggedDisk.y = e.offsetY - this.draggedDisk.height / 2;
+                this.draw();
+            }
+
+            handleMouseUp(e) {
+                if (!this.draggedDisk || this.isAnimating) return;
+                
+                const targetRod = this.findNearestRod(e.offsetX);
+                
+                if (this.canMoveDisk(this.draggedDisk.rod, targetRod)) {
+                    this.moveDisk(this.draggedDisk.rod, targetRod);
+                }
+                
+                this.draggedDisk = null;
+                this.draw();
+            }
+
+            isPointInDisk(mouseX, mouseY, rodX, y, disk) {
+                return mouseX >= rodX - disk.width/2 &&
+                       mouseX <= rodX + disk.width/2 &&
+                       mouseY >= y &&
+                       mouseY <= y + disk.height;
+            }
+
+            findNearestRod(x) {
+                return this.rods.reduce((nearest, rod, index) => 
+                    Math.abs(x - rod) < Math.abs(x - this.rods[nearest]) ? index : nearest
+                , 0);
+            }
+
+            initializeDisks(numDisks = 3) {
+                this.disks = [];
+                this.moves = 0;
+                this.moveCounter.textContent = `Moves: ${this.moves}`;
+                this.diskCounter.textContent = `Disks: ${numDisks}`;
+                
+                for (let i = numDisks; i > 0; i--) {
+                    this.disks.push({
+                        width: 100 + i * 30,
+                        height: 20,
+                        rod: 0,
+                        position: numDisks - i
+                    });
+                }
+                this.draw();
+            }
+
+            addDisk() {
+                if (this.isAnimating) return;
+                const currentNumDisks = this.disks.length;
+                if (currentNumDisks >= 8) return;
+
+                const newDisk = {
+                    width: 100 + (currentNumDisks + 1) * 30,
+                    height: 20,
+                    rod: 0,
+                    position: currentNumDisks
+                };
+                this.disks.push(newDisk);
+                this.diskCounter.textContent = `Disks: ${this.disks.length}`;
+                this.draw();
+            }
+
+            removeDisk() {
+                if (this.isAnimating || this.disks.length <= 3) return;
+                this.disks.pop();
+                this.diskCounter.textContent = `Disks: ${this.disks.length}`;
+                this.draw();
+            }
+
+            draw() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                
+                // Draw rods
+                this.ctx.fillStyle = '#537188';
+                this.rods.forEach(x => {
+                    this.ctx.fillRect(x - this.rodWidth/2, 100, this.rodWidth, this.rodHeight);
+                });
+
+                // Draw disks
+                this.disks.forEach((disk, index) => {
+                    const rodX = this.rods[disk.rod];
+                    const y = 380 - disk.position * 25;
+                    
+                    if (this.draggedDisk === disk) {
+                        this.ctx.fillStyle = 'rgba(255,0,0,0.5)';
+                        this.ctx.fillRect(disk.x, disk.y, disk.width, disk.height);
+                    } else {
+                        this.ctx.fillStyle = `hsl(${index * 30}, 70%, 60%)`;
+                        this.ctx.fillRect(
+                            rodX - disk.width/2, 
+                            y, 
+                            disk.width, 
+                            disk.height
+                        );
+                    }
+                });
+            }
+
+            canMoveDisk(fromRod, toRod) {
+                const fromDisks = this.disks.filter(d => d.rod === fromRod);
+                const toDisks = this.disks.filter(d => d.rod === toRod);
+                
+                if (fromDisks.length === 0) return false;
+                if (toDisks.length === 0) return true;
+                
+                return fromDisks[fromDisks.length - 1].width < toDisks[toDisks.length - 1].width;
+            }
+
+            moveDisk(fromRod, toRod) {
+                if (!this.canMoveDisk(fromRod, toRod)) return false;
+                
+                const diskToMove = this.disks.filter(d => d.rod === fromRod)
+                    .sort((a, b) => b.position - a.position)[0];
+                
+                const toDisks = this.disks.filter(d => d.rod === toRod);
+                diskToMove.rod = toRod;
+                diskToMove.position = toDisks.length;
+                
+                this.moves++;
+                this.moveCounter.textContent = `Moves: ${this.moves}`;
+                this.draw();
+                return true;
+            }
+
+            solveAutomatically() {
+                if (this.isAnimating) return;
+                this.isAnimating = true;
+                this.moveQueue = [];
+                this.generateMoves(this.disks.length, 0, 2, 1);
+                this.executeMovesWithAnimation();
+            }
+
+            generateMoves(n, fromRod, toRod, auxRod) {
+                if (n > 0) {
+                    this.generateMoves(n - 1, fromRod, auxRod, toRod);
+                    this.moveQueue.push([fromRod, toRod]);
+                    this.generateMoves(n - 1, auxRod, toRod, fromRod);
+                }
+            }
+
+            executeMovesWithAnimation() {
+                if (this.moveQueue.length === 0) {
+                    this.isAnimating = false;
+                    return;
+                }
+
+                const [fromRod, toRod] = this.moveQueue.shift();
+                this.moveDisk(fromRod, toRod);
+                
+                setTimeout(() => this.executeMovesWithAnimation(), 500);
+            }
+        }
+
+        const game = new TowerOfHanoi();
+        game.initializeDisks();
+    </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .processTitle {
+            color: white;
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .container1 {
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 0 auto;
+        }
+
+        .step-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            background: #1e3a8a;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 3px solid #ef4444;
+        }
+
+        .step-title {
+            color: #ef4444;
+            font-size: 1.25rem;
+            margin-top: 0.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .step-content {
+            color: #374151;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .step-content ul {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+
+        .step-content li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .step-content li::before {
+            content: "•";
+            color: #ef4444;
+            font-weight: bold;
+            position: absolute;
+            left: -1rem;
+        }
+
+        @media (max-width: 768px) {
+
+            .processTitle {
+                font-size: 1.8rem;
+                margin-bottom: 2rem;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="processTitle">HOW TO POST CONTENT ON SEO GURUZZ!</h1>
+    <div class="container">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <h2 class="step-title">Visit the Website</h2>
+            <div class="step-content">
+                <p>https://seoguruzz.com</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <h2 class="step-title">Sign Up</h2>
+            <div class="step-content">
+                <p>After signing up you will be redirected to dashboard</p>
+                <p>Note: Login credentials delivered on your E-mail.</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <h2 class="step-title">Access Your Dashboard</h2>
+            <div class="step-content">
+                <p>After signing up, you'll be taken to your dashboard.</p>
+                <p>Check your email for your User ID & Password.</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">4</div>
+            <h2 class="step-title">Get Coupons and Start Posting</h2>
+            <div class="step-content">
+                <p>Once payment is done, your coupons will show up in your account. You'll also see an Add Post button on your dashboard.</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">5</div>
+            <h2 class="step-title">Use a Coupon to Add a Post</h2>
+            <div class="step-content">
+                <ul>
+                    <li>Redeem one of your coupons.</li>
+                    <li>Pick a website from the drop-down menu.</li>
+                    <li>Click on Add Post.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">6</div>
+            <h2 class="step-title">Submit Your Content</h2>
+            <div class="step-content">
+                <ul>
+                    <li>Enter the details for your post</li>
+                    <li>Write a Title</li>
+                    <li>Add your Content</li>
+                    <li>Choose a Category</li>
+                    <li>Add a Featured Image if you want</li>
+                    <li>Click Publish to submit your post</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">7</div>
+            <h2 class="step-title">Expert Review</h2>
+            <div class="step-content">
+                <ul>
+                    <li>Our team will check your post to make sure everything looks good.</li>
+                    <li>After review, your content will be published.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">8</div>
+            <h2 class="step-title">Get Your Link</h2>
+            <div class="step-content">
+                <p>You'll receive the live link to your post within 24 working hours.</p>
+            </div>
+        </div>
+
+        <div class="step-card">
+            <div class="step-number">9</div>
+            <h2 class="step-title">If you need post again</h2>
+            <div class="step-content">
+                <p>Buy a new pack and post again</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
