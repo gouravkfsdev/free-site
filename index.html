@@ -1,210 +1,1380 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html >
+<html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Portfolio</title>
-    <link rel="icon" href="./favicon.png" sizes="32x32" type="image/png">
+    <title>ProPlumb USA - Professional Plumbing Services</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'forest': '#1a4d3a',
+                        'emerald': '#2d6a4f',
+                        'sage': '#40916c',
+                        'mint': '#52b788',
+                        'tangerine': '#ff6b35',
+                        'coral': '#f7931e',
+                        'amber': '#ffb627'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
-        .animate-gradient {
-            background: linear-gradient(120deg, #4f46e5, #9333ea, #3b82f6);
-            background-size: 300% 300%;
-            animation: gradientShift 15s ease infinite;
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a4d3a 0%, #2d6a4f 50%, #40916c 100%);
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .orange-gradient {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ffb627 100%);
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .step-indicator {
+            position: relative;
+        }
+
+        .step-indicator.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            border-radius: 2px;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fffe 100%);
+            border: 1px solid rgba(45, 106, 79, 0.1);
+        }
+
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+
+            80%,
+            100% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Borough Tab Styles */
+        .borough-tab {
+            background: rgba(26, 77, 58, 0.1);
+            color: #1a4d3a;
+            border: 2px solid transparent;
+        }
+
+        .borough-tab:hover {
+            background: rgba(255, 107, 53, 0.1);
+            border-color: #ff6b35;
+            transform: translateY(-2px);
+        }
+
+        .borough-tab.active {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            border-color: #ff6b35;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        /* City Card Styles */
+        .city-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .city-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .city-card:hover::before {
+            left: 100%;
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        }
+
+        .image-overlay {
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.9) 0%, rgba(45, 106, 79, 0.8) 100%);
+        }
+
+        .wave-bg {
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5f3 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wave-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
         }
 
         .floating {
             animation: float 6s ease-in-out infinite;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
+         .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            height: 500px;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            padding: 2rem;
+        }
+        
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.1));
+        }
+        
+        .carousel-content {
+            position: relative;
+            z-index: 10;
+            color: white;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 20;
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .indicator.active {
+            background: #ff6b35;
+            transform: scale(1.2);
+        }
+        
+        @media (max-width: 1024px) {
+            .carousel-slide {
+                height: 400px;
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .carousel-slide {
+                height: 300px;
+                padding: 1rem;
+            }
+        }
+    </style>
+    <style>
+        .thin-scrollbar::-webkit-scrollbar {
+            width: 6px !important;
+        }
+        .thin-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.3) !important;
+            border-radius: 3px !important;
+        }
+        .thin-scrollbar::-webkit-scrollbar-track {
+            background: transparent !important;
         }
     </style>
 </head>
-<body class="bg-gray-50">
-    <!-- Animated Background Elements -->
-    <div class="fixed inset-0 -z-10 overflow-hidden">
-        <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
-        <div class="absolute -bottom-40 -left-40 w-80 h-80 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
-        <div class="absolute top-1/2 left-1/2 w-80 h-80 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
-    </div>
 
-    <!-- Profile Section -->
-    <section class="pt-20 pb-12 animate-gradient">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center justify-center gap-8 text-white">
-                <div class="w-48 h-48 rounded-full overflow-hidden border-4 border-white shadow-xl floating">
-                    <img src="./IMG_20241230_205159.jpg" alt="Profile" class="w-full h-full object-cover">
+<body class="bg-gray-50 font-sans" class="thin-scrollbar">
+    <!-- Hero Section -->
+    <section class="gradient-bg min-h-screen flex items-center justify-center relative overflow-hidden">
+        <!-- Animated Background Elements -->
+        <div class="absolute inset-0 overflow-hidden">
+            <div class="absolute -top-10 -left-10 w-40 h-40 bg-mint opacity-10 rounded-full pulse-ring"></div>
+            <div class="absolute top-1/3 -right-20 w-60 h-60 bg-tangerine opacity-10 rounded-full pulse-ring"
+                style="animation-delay: 1s;"></div>
+            <div class="absolute -bottom-20 left-1/3 w-80 h-80 bg-sage opacity-10 rounded-full pulse-ring"
+                style="animation-delay: 2s;"></div>
+        </div>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-12">
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+                        Professional <span class="orange-gradient bg-clip-text text-transparent">Plumbing</span>
+                        Services
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-100 mb-8 max-w-3xl mx-auto">
+                        24/7 Emergency Service • Licensed & Insured • USA Wide Coverage
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4 mb-12">
+                        <div class="flex items-center text-white">
+                            <i class="fas fa-star text-amber mr-2"></i>
+                            <span>4.9/5 Rating</span>
+                        </div>
+                        <div class="flex items-center text-white">
+                            <i class="fas fa-clock text-amber mr-2"></i>
+                            <span>Same Day Service</span>
+                        </div>
+                        <div class="flex items-center text-white">
+                            <i class="fas fa-shield-alt text-amber mr-2"></i>
+                            <span>100% Guaranteed</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-center md:text-left">
-                    <h1 class="text-5xl font-bold mb-4">Gourav Vishwakarma</h1>
-                    <p class="text-xl mb-6">Full Stack Developer</p>
-                    <div class="flex flex-wrap justify-center md:justify-start gap-4">
-                        <a href="./assets/Gourav Vishwakarma (LARAVEL).pdf" target="_blank" download="GouravResume.pdf" class="px-6 py-2 bg-white text-purple-600 rounded-full font-semibold hover:bg-opacity-90 transition-colors duration-300">Resume</a>
-                        <a href="#" class="px-6 py-2 border-2 border-white rounded-full font-semibold hover:bg-white hover:text-purple-600 transition-colors duration-300">Contact Me</a>
+
+                <!-- City Search Section -->
+                <div class="bg-white/95 backdrop-blur-sm rounded-2xl p-8 shadow-2xl mb-12 max-w-4xl mx-auto">
+                    <h2 class="text-2xl md:text-3xl font-bold text-forest text-center mb-6">
+                        Select Your City for Local Service
+                    </h2>
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex-1">
+                            <input type="text" id="citySearch"
+                                placeholder="Search your city (e.g., New York, Los Angeles, Chicago...)"
+                                class="w-full px-6 py-4 border-2 border-sage/30 rounded-xl focus:border-tangerine focus:outline-none text-lg">
+                        </div>
+                        <button onclick="searchCity()"
+                            class="orange-gradient text-white px-8 py-4 rounded-xl font-semibold text-lg hover:shadow-lg transition-all duration-300 hover-lift">
+                            <i class="fas fa-search mr-2"></i>Find Service
+                        </button>
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-sm text-gray-600 text-center mb-4">Popular Cities:</p>
+                        <div class="flex flex-wrap justify-center gap-2">
+                            <span
+                                class="city-tag bg-emerald/10 text-emerald px-4 py-2 rounded-full text-sm cursor-pointer hover:bg-emerald hover:text-white transition-colors"
+                                ><a href="./new-york.html">New York</a></span>
+                            <span
+                                class="city-tag bg-emerald/10 text-emerald px-4 py-2 rounded-full text-sm cursor-pointer hover:bg-emerald hover:text-white transition-colors"
+                                > <a href="./new-york.html">Chicago</a></span>
+                            <span
+                                class="city-tag bg-emerald/10 text-emerald px-4 py-2 rounded-full text-sm cursor-pointer hover:bg-emerald hover:text-white transition-colors"
+                                > <a href="./new-york.html">Chicago</a></span>
+                             <span
+                                class="city-tag bg-emerald/10 text-emerald px-4 py-2 rounded-full text-sm cursor-pointer hover:bg-emerald hover:text-white transition-colors"
+                                > <a href="./new-york.html">Houston</a></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CTA Buttons -->
+                <div class="text-center">
+                    <div class="flex flex-col md:flex-row gap-6 justify-center">
+                        <button onclick="scrollToSection('request-service')"
+                            class="orange-gradient text-white px-10 py-5 rounded-xl font-bold text-xl hover:shadow-2xl transition-all duration-300 hover-lift">
+                            <i class="fas fa-wrench mr-3"></i>Request Service Now
+                        </button>
+                        <button onclick="callNow()"
+                            class="bg-white text-forest px-10 py-5 rounded-xl font-bold text-xl hover:shadow-2xl transition-all duration-300 hover-lift border-2 border-white hover:bg-forest hover:text-white">
+                            <i class="fas fa-phone mr-3"></i>Call Now: (555) 123-PLUMB
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Stats Section -->
-    <section class="py-12 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div class="p-4">
-                    <p class="text-4xl font-bold text-purple-600">3+</p>
-                    <p class="text-gray-600">Years Experience</p>
+    <!-- Service Request Form Section -->
+    <section id="request-service" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-4xl mx-auto">
+                <div class="text-center mb-12">
+                    <h2 class="text-4xl md:text-5xl font-bold text-forest mb-4">Request Your Service</h2>
+                    <p class="text-xl text-gray-600">Get a free quote in 3 simple steps</p>
                 </div>
-                <div class="p-4">
-                    <p class="text-4xl font-bold text-purple-600">30+</p>
-                    <p class="text-gray-600">Projects Completed</p>
+
+                <!-- Step Indicators -->
+                <div class="flex justify-center mb-12">
+                    <div class="flex space-x-8">
+                        <div class="step-indicator active flex flex-col items-center" id="step1-indicator">
+                            <div
+                                class="w-12 h-12 bg-tangerine text-white rounded-full flex items-center justify-center font-bold text-lg mb-2">
+                                1</div>
+                            <span class="text-sm font-medium text-tangerine">Service Type</span>
+                        </div>
+                        <div class="step-indicator flex flex-col items-center" id="step2-indicator">
+                            <div
+                                class="w-12 h-12 bg-gray-300 text-gray-500 rounded-full flex items-center justify-center font-bold text-lg mb-2">
+                                2</div>
+                            <span class="text-sm font-medium text-gray-500">Details</span>
+                        </div>
+                        <div class="step-indicator flex flex-col items-center" id="step3-indicator">
+                            <div
+                                class="w-12 h-12 bg-gray-300 text-gray-500 rounded-full flex items-center justify-center font-bold text-lg mb-2">
+                                3</div>
+                            <span class="text-sm font-medium text-gray-500">Contact Info</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="p-4">
-                    <p class="text-4xl font-bold text-purple-600">20+</p>
-                    <p class="text-gray-600">Happy Clients</p>
-                </div>
-                <div class="p-4">
-                    <p class="text-4xl font-bold text-purple-600">99%</p>
-                    <p class="text-gray-600">Client Satisfaction</p>
+
+                <!-- Form Container -->
+                <div class="bg-white rounded-2xl shadow-2xl p-8">
+                    <!-- Step 1: Service Type -->
+                    <div id="step1" class="step-content">
+                        <h3 class="text-2xl font-bold text-forest mb-6 text-center">What service do you need?</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="service-card p-6 rounded-xl cursor-pointer hover-lift transition-all"
+                                onclick="selectService('emergency')">
+                                <div class="text-center">
+                                    <i class="fas fa-exclamation-triangle text-4xl text-tangerine mb-4"></i>
+                                    <h4 class="font-bold text-forest mb-2">Emergency Repair</h4>
+                                    <p class="text-sm text-gray-600">Burst pipes, severe leaks, no water</p>
+                                </div>
+                            </div>
+                            <div class="service-card p-6 rounded-xl cursor-pointer hover-lift transition-all"
+                                onclick="selectService('drain')">
+                                <div class="text-center">
+                                    <i class="fas fa-tint text-4xl text-emerald mb-4"></i>
+                                    <h4 class="font-bold text-forest mb-2">Drain Cleaning</h4>
+                                    <p class="text-sm text-gray-600">Clogged drains, slow drainage</p>
+                                </div>
+                            </div>
+                            <div class="service-card p-6 rounded-xl cursor-pointer hover-lift transition-all"
+                                onclick="selectService('water-heater')">
+                                <div class="text-center">
+                                    <i class="fas fa-fire text-4xl text-coral mb-4"></i>
+                                    <h4 class="font-bold text-forest mb-2">Water Heater</h4>
+                                    <p class="text-sm text-gray-600">Repair or replacement</p>
+                                </div>
+                            </div>
+                            <div class="service-card p-6 rounded-xl cursor-pointer hover-lift transition-all"
+                                onclick="selectService('toilet')">
+                                <div class="text-center">
+                                    <i class="fas fa-toilet text-4xl text-sage mb-4"></i>
+                                    <h4 class="font-bold text-forest mb-2">Toilet Services</h4>
+                                    <p class="text-sm text-gray-600">Installation, repair, unclogging</p>
+                                </div>
+                            </div>
+                            <div class="service-card p-6 rounded-xl cursor-pointer hover-lift transition-all"
+                                onclick="selectService('faucet')">
+                                <div class="text-center">
+                                    <i class="fas fa-faucet text-4xl text-mint mb-4"></i>
+                                    <h4 class="font-bold text-forest mb-2">Faucet & Fixtures</h4>
+                                    <p class="text-sm text-gray-600">Installation and repair</p>
+                                </div>
+                            </div>
+                            <div class="service-card p-6 rounded-xl cursor-pointer hover-lift transition-all"
+                                onclick="selectService('pipe')">
+                                <div class="text-center">
+                                    <i class="fas fa-tools text-4xl text-tangerine mb-4"></i>
+                                    <h4 class="font-bold text-forest mb-2">Pipe Services</h4>
+                                    <p class="text-sm text-gray-600">Repiping, leak detection</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Details -->
+                    <div id="step2" class="step-content hidden">
+                        <h3 class="text-2xl font-bold text-forest mb-6 text-center">Tell us more about your issue</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-forest font-semibold mb-2">Selected Service</label>
+                                <input type="text" id="selectedService" readonly
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50">
+                            </div>
+                            <div>
+                                <label class="block text-forest font-semibold mb-2">Describe the problem</label>
+                                <textarea class="w-full px-4 py-3 border border-gray-300 rounded-lg h-32"
+                                    placeholder="Please describe your plumbing issue in detail..."></textarea>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-forest font-semibold mb-2">Urgency Level</label>
+                                    <select class="w-full px-4 py-3 border border-gray-300 rounded-lg">
+                                        <option>Emergency (ASAP)</option>
+                                        <option>Same Day</option>
+                                        <option>Within 2-3 days</option>
+                                        <option>Within a week</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-forest font-semibold mb-2">Property Type</label>
+                                    <select class="w-full px-4 py-3 border border-gray-300 rounded-lg">
+                                        <option>Residential House</option>
+                                        <option>Apartment</option>
+                                        <option>Commercial Building</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mt-8">
+                            <button onclick="prevStep()"
+                                class="bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors">
+                                <i class="fas fa-arrow-left mr-2"></i>Previous
+                            </button>
+                            <button onclick="nextStep()"
+                                class="orange-gradient text-white px-6 py-3 rounded-lg hover:shadow-lg transition-all">
+                                Next<i class="fas fa-arrow-right ml-2"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Contact Info -->
+                    <div id="step3" class="step-content hidden">
+                        <h3 class="text-2xl font-bold text-forest mb-6 text-center">Your Contact Information</h3>
+                        <div class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-forest font-semibold mb-2">First Name</label>
+                                    <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                                        placeholder="Your first name">
+                                </div>
+                                <div>
+                                    <label class="block text-forest font-semibold mb-2">Last Name</label>
+                                    <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                                        placeholder="Your last name">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-forest font-semibold mb-2">Phone Number</label>
+                                    <input type="tel" class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                                        placeholder="(555) 123-4567">
+                                </div>
+                                <div>
+                                    <label class="block text-forest font-semibold mb-2">Email Address</label>
+                                    <input type="email" class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                                        placeholder="your@email.com">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-forest font-semibold mb-2">Service Address</label>
+                                <input type="text" class="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                                    placeholder="123 Main St, City, State, ZIP">
+                            </div>
+                            <div>
+                                <label class="block text-forest font-semibold mb-2">Best Time to Contact</label>
+                                <select class="w-full px-4 py-3 border border-gray-300 rounded-lg">
+                                    <option>Morning (8am - 12pm)</option>
+                                    <option>Afternoon (12pm - 5pm)</option>
+                                    <option>Evening (5pm - 8pm)</option>
+                                    <option>Anytime</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="flex justify-between mt-8">
+                            <button onclick="prevStep()"
+                                class="bg-gray-500 text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition-colors">
+                                <i class="fas fa-arrow-left mr-2"></i>Previous
+                            </button>
+                            <button onclick="submitRequest()"
+                                class="orange-gradient text-white px-8 py-3 rounded-lg hover:shadow-lg transition-all font-semibold">
+                                <i class="fas fa-paper-plane mr-2"></i>Submit Request
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4 text-center">Featured Projects</h2>
-            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Explore my latest work and creative solutions across various technologies and platforms.</p>
-            
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Portfolio Site Card -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div class="h-48"><img src="./assets/project/img/portfolio.png" class="w-full h-full object-cover transition transform group-hover:scale-110"></div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2"><a href="./protfolio.html" class="text-black-600 hover:text-purple-600">Portfolio Website</a></h3>
-                    <p class="text-gray-600 mb-4">A modern, responsive portfolio showcasing my work and skills</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm">HTML</span>
-                        <span class="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm">CSS</span>
-                        <span class="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm">JavaScript</span>
-                    </div>
-                </div>
+    <!-- Services Section -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold text-forest mb-4">Our Professional Services</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">From emergency repairs to complete installations, we
+                    handle all your plumbing needs with expertise and care.</p>
             </div>
-
-            <!-- Dashboard Site Card -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div class="h-48"><img src="./assets/project/img/dashboard.png" class="w-full h-full object-cover transition transform group-hover:scale-110"></div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2"><a href="./dashboard.html" class="text-black-600 hover:text-purple-600">Analytics Dashboard</a></h3>
-                    <p class="text-gray-600 mb-4">Interactive dashboard with data visualization and real-time updates</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">Tailwind</span>
-                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">Chart.js</span>
-                        <span class="px-3 py-1 bg-blue-100 text-blue-600 rounded-full text-sm">API</span>
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="service-card p-8 rounded-xl hover-lift text-center">
+                    <i class="fas fa-tools text-5xl text-tangerine mb-4"></i>
+                    <h3 class="text-xl font-bold text-forest mb-3">Emergency Repairs</h3>
+                    <p class="text-gray-600">24/7 emergency plumbing services for urgent repairs and emergencies.</p>
                 </div>
-            </div>
-
-            <!-- Typing Site Card -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div class="h-48"><img src="./assets/project/img/typing.png" class="w-full h-full object-cover transition transform group-hover:scale-110"></div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2"><a href="./typing.html" class="text-black-600 hover:text-purple-600">Speed Typing Game</a></h3>
-                    <p class="text-gray-600 mb-4">Test and improve your typing speed with interactive challenges</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">JavaScript</span>
-                        <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">Game Dev</span>
-                        <span class="px-3 py-1 bg-green-100 text-green-600 rounded-full text-sm">UI/UX</span>
-                    </div>
+                <div class="service-card p-8 rounded-xl hover-lift text-center">
+                    <i class="fas fa-shower text-5xl text-emerald mb-4"></i>
+                    <h3 class="text-xl font-bold text-forest mb-3">Bathroom Remodeling</h3>
+                    <p class="text-gray-600">Complete bathroom renovations and fixture installations.</p>
                 </div>
-            </div>
-
-            <!-- Annual Report Site Card -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div class="h-48"><img src="./assets/project/img/annual.png" class="w-full h-full object-cover transition transform group-hover:scale-110"></div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2"><a href="./annual.html" class="text-black-600 hover:text-purple-600">Annual Report 2025</a></h3>
-                    <p class="text-gray-600 mb-4">Interactive annual report with animated data visualizations</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">D3.js</span>
-                        <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">Animations</span>
-                        <span class="px-3 py-1 bg-purple-100 text-purple-600 rounded-full text-sm">SVG</span>
-                    </div>
+                <div class="service-card p-8 rounded-xl hover-lift text-center">
+                    <i class="fas fa-tint text-5xl text-sage mb-4"></i>
+                    <h3 class="text-xl font-bold text-forest mb-3">Leak Detection</h3>
+                    <p class="text-gray-600">Advanced leak detection and repair services to prevent water damage.</p>
                 </div>
-            </div>
-
-            <!-- Contribution Graph Card -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div class="h-48"><img src="./assets/project/img/profile.png" class="w-full h-full object-cover transition transform group-hover:scale-110"></div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2"><a href="./profile.html" class="text-black-600 hover:text-purple-600">GitHub Contributions</a></h3>
-                    <p class="text-gray-600 mb-4">Visual representation of my yearly GitHub activity</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-pink-100 text-pink-600 rounded-full text-sm">GitHub API</span>
-                        <span class="px-3 py-1 bg-pink-100 text-pink-600 rounded-full text-sm">Data Viz</span>
-                        <span class="px-3 py-1 bg-pink-100 text-pink-600 rounded-full text-sm">Grid</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Code Theme Portfolio Card -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div class="h-48"><img src="./assets/project/img/codePortfolio.png" class="w-full h-full object-cover transition transform group-hover:scale-110"></div>
-                <div class="p-6">
-                    <h3 class="text-xl font-semibold text-gray-800 mb-2"><a href="./code-protfolio.html" class="text-black-600 hover:text-purple-600">Code Portfolio</a></h3>
-                    <p class="text-gray-600 mb-4">Portfolio design in Code Theme</p>
-                    <div class="flex flex-wrap gap-2">
-                        <span class="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm">HTML</span>
-                        <span class="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm">CSS</span>
-                        <span class="px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full text-sm">JavaScript</span>
-                    </div>
+                <div class="service-card p-8 rounded-xl hover-lift text-center">
+                    <i class="fas fa-wrench text-5xl text-coral mb-4"></i>
+                    <h3 class="text-xl font-bold text-forest mb-3">Maintenance</h3>
+                    <p class="text-gray-600">Regular maintenance services to keep your plumbing system running smoothly.
+                    </p>
                 </div>
             </div>
         </div>
+    </section>
+
+    
+    <style>
+        .city-card {
+            transition: all 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .city-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .city-overlay {
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.85), rgba(82, 183, 136, 0.75));
+        }
+        .service-icon {
+            transition: transform 0.3s ease;
+        }
+        .city-card:hover .service-icon {
+            transform: scale(1.1);
+        }
+        .call-btn {
+            transition: all 0.3s ease;
+        }
+        .call-btn:hover {
+            transform: scale(1.05);
+        }
+        .city-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+    </style>
+
+      <!-- Header Section -->
+    <section class="mb-12 mt-5">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center">
+                <h1 class="text-4xl font-bold text-forest mb-4">
+                    <i class="fas fa-wrench text-tangerine mr-3"></i>
+                    Professional Plumbing Services
+                </h1>
+                <p class="text-gray-600 text-lg">Trusted plumbers serving major cities across the USA</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- City Cards Section -->
+    <section style="margin-bottom: 30px;">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- New York Card -->
+                <div class="city-card bg-white rounded-2xl shadow-lg hover:shadow-2xl" onclick="navigateToCity('new-york')">
+                    <div class="city-image rounded-t-2xl" style="background-image: url('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <div class="city-overlay absolute inset-0 rounded-t-2xl"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-tools service-icon text-5xl text-white"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-forest mb-2">New York</h3>
+                        <p class="text-gray-600 mb-4">Expert plumbing services in the Big Apple</p>
+                        
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check-circle text-mint mr-2"></i>
+                                24/7 Emergency Service
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check-circle text-mint mr-2"></i>
+                                Licensed & Insured
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check-circle text-mint mr-2"></i>
+                                Free Estimates
+                            </div>
+                        </div>
+                        
+                        <button class="call-btn w-full bg-tangerine text-white py-3 rounded-lg font-semibold hover:bg-coral transition-colors" onclick="event.stopPropagation(); callNow('212-555-7473')">
+                            <i class="fas fa-phone mr-2"></i>Call Now: (212) 555-PIPE
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Los Angeles Card -->
+                <div class="city-card bg-white rounded-2xl shadow-lg hover:shadow-2xl" onclick="navigateToCity('los-angeles')">
+                    <div class="city-image rounded-t-2xl" style="background-image: url('https://images.unsplash.com/photo-1544717297-fa95b6ee9643?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <div class="city-overlay absolute inset-0 rounded-t-2xl"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-wrench service-icon text-5xl text-white"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-forest mb-2">Los Angeles</h3>
+                        <p class="text-gray-600 mb-4">Reliable plumbers serving the City of Angels</p>
+                        
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check-circle text-mint mr-2"></i>
+                                Same-Day Service
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check-circle text-mint mr-2"></i>
+                                Eco-Friendly Solutions
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check-circle text-mint mr-2"></i>
+                                10-Year Warranty
+                            </div>
+                        </div>
+                        
+                        <button class="call-btn w-full bg-tangerine text-white py-3 rounded-lg font-semibold hover:bg-coral transition-colors" onclick="event.stopPropagation(); callNow('323-555-7473')">
+                            <i class="fas fa-phone mr-2"></i>Call Now: (323) 555-PIPE
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chicago Card -->
+                <div class="city-card bg-white rounded-2xl shadow-lg hover:shadow-2xl" onclick="navigateToCity('chicago')">
+                    <div class="city-image rounded-t-2xl" style="background-image: url('https://images.unsplash.com/photo-1477414348463-c0eb7f1359b6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <div class="city-overlay absolute inset-0 rounded-t-2xl"></div>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <i class="fas fa-pipe service-icon text-5xl text-white transform rotate-45"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-forest mb-2">Chicago</h3>
+                        <p class="text-gray-600 mb-4">Professional plumbing in the Windy City</p>
+                        
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check-circle text-mint mr-2"></i>
+                                Winter Emergency Ready
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check-circle text-mint mr-2"></i>
+                                Pipe Freeze Prevention
+                            </div>
+                            <div class="flex items-center text-sm text-gray-700">
+                                <i class="fas fa-check-circle text-mint mr-2"></i>
+                                Commercial & Residential
+                            </div>
+                        </div>
+                        
+                        <button class="call-btn w-full bg-tangerine text-white py-3 rounded-lg font-semibold hover:bg-coral transition-colors" onclick="event.stopPropagation(); callNow('312-555-7473')">
+                            <i class="fas fa-phone mr-2"></i>Call Now: (312) 555-PIPE
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 gradient-bg">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">About ProPlumb USA</h2>
+                        <p class="text-lg text-gray-100 mb-6">
+                            With over 15 years of experience serving communities across the United States, ProPlumb USA
+                            has
+                            built a reputation for excellence, reliability, and customer satisfaction. Our team of
+                            licensed
+                            professionals is committed to providing top-quality plumbing services at competitive prices.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-center text-white">
+                                <i class="fas fa-check-circle text-amber mr-4 text-xl"></i>
+                                <span class="text-lg">Licensed & Insured Professionals</span>
+                            </div>
+                            <div class="flex items-center text-white">
+                                <i class="fas fa-check-circle text-amber mr-4 text-xl"></i>
+                                <span class="text-lg">24/7 Emergency Service Available</span>
+                            </div>
+                            <div class="flex items-center text-white">
+                                <i class="fas fa-check-circle text-amber mr-4 text-xl"></i>
+                                <span class="text-lg">100% Satisfaction Guarantee</span>
+                            </div>
+                            <div class="flex items-center text-white">
+                                <i class="fas fa-check-circle text-amber mr-4 text-xl"></i>
+                                <span class="text-lg">Upfront Pricing - No Hidden Fees</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8">
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="text-center">
+                                    <div class="text-4xl font-bold text-amber mb-2">15+</div>
+                                    <div class="text-white">Years Experience</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-4xl font-bold text-amber mb-2">50+</div>
+                                    <div class="text-white">Cities Served</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-4xl font-bold text-amber mb-2">10K+</div>
+                                    <div class="text-white">Happy Customers</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-4xl font-bold text-amber mb-2">4.9★</div>
+                                    <div class="text-white">Average Rating</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Contact Section -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center max-w-2xl mx-auto">
-                <h2 class="text-4xl font-bold text-gray-800 mb-4">Let's Work Together</h2>
-                <p class="text-gray-600 mb-8">Have a project in mind? I'd love to help bring your ideas to life.</p>
-                <a href="#" class="inline-block px-8 py-3 bg-purple-600 text-white rounded-full font-semibold hover:bg-purple-700 transition-colors duration-300">Get in Touch</a>
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-forest mb-4">Get In Touch</h2>
+                    <p class="text-xl text-gray-600">Ready to solve your plumbing problems? Contact us today!</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <div class="space-y-8">
+                            <div class="flex items-start">
+                                <div class="orange-gradient text-white p-3 rounded-lg mr-4">
+                                    <i class="fas fa-phone text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-forest mb-2">Phone</h3>
+                                    <p class="text-gray-600">Call us 24/7 for emergency service</p>
+                                    <p class="text-lg font-semibold text-tangerine">(555) 123-PLUMB</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="orange-gradient text-white p-3 rounded-lg mr-4">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-forest mb-2">Email</h3>
+                                    <p class="text-gray-600">Send us your questions or requests</p>
+                                    <p class="text-lg font-semibold text-tangerine">info@proplumbusa.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="orange-gradient text-white p-3 rounded-lg mr-4">
+                                    <i class="fas fa-clock text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-forest mb-2">Business Hours</h3>
+                                    <p class="text-gray-600">Mon-Fri: 8AM-6PM</p>
+                                    <p class="text-gray-600">Sat-Sun: 9AM-5PM</p>
+                                    <p class="text-tangerine font-semibold">Emergency: 24/7</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="bg-white rounded-2xl shadow-xl p-8">
+                            <h3 class="text-2xl font-bold text-forest mb-6">Send us a message</h3>
+                            <form class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <input type="text" placeholder="First Name"
+                                        class="px-4 py-3 border border-gray-300 rounded-lg focus:border-tangerine focus:outline-none">
+                                    <input type="text" placeholder="Last Name"
+                                        class="px-4 py-3 border border-gray-300 rounded-lg focus:border-tangerine focus:outline-none">
+                                </div>
+                                <input type="email" placeholder="Email Address"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-tangerine focus:outline-none">
+                                <input type="tel" placeholder="Phone Number"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-tangerine focus:outline-none">
+                                <textarea placeholder="Your Message" rows="4"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-tangerine focus:outline-none"></textarea>
+                                <button type="submit"
+                                    class="w-full orange-gradient text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all">
+                                    Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="text-center md:text-left mb-8 md:mb-0">
-                    <h3 class="text-2xl font-bold mb-2">Gourav Vishwakarma</h3>
-                    <p class="text-gray-400">Full Stack Developer</p>
-                </div>
-                <div class="flex gap-6">
-                    <a href="#" class="hover:text-purple-400 transition-colors">Twitter</a>
-                    <a href="#" class="hover:text-purple-400 transition-colors">GitHub</a>
-                    <a href="#" class="hover:text-purple-400 transition-colors">LinkedIn</a>
-                    <a href="#" class="hover:text-purple-400 transition-colors">Dribbble</a>
+    <!-- City Detail Pages (Hidden by default) -->
+    <div id="city-pages" class="hidden">
+        <!-- New York Page -->
+        <section id="new-york-page" class="city-page hidden min-h-screen bg-gray-50 py-8">
+            <div class="max-w-4xl mx-auto px-4">
+                <button onclick="goBack()" class="mb-6 bg-forest text-white px-4 py-2 rounded-lg hover:bg-emerald transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Cities
+                </button>
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <div class="h-64" style="background-image: url('https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'); background-size: cover; background-position: center;"></div>
+                    <div class="p-8">
+                        <h1 class="text-4xl font-bold text-forest mb-4">New York Plumbing Services</h1>
+                        <p class="text-gray-600 mb-6">Professional plumbing solutions for Manhattan, Brooklyn, Queens, Bronx, and Staten Island.</p>
+                        
+                        <div class="grid md:grid-cols-2 gap-8 mb-8">
+                            <div>
+                                <h3 class="text-xl font-semibold text-forest mb-4">Emergency Services</h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center"><i class="fas fa-check text-mint mr-2"></i>24/7 Emergency Response</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-mint mr-2"></i>Burst Pipe Repair</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-mint mr-2"></i>Drain Unclogging</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-mint mr-2"></i>Water Heater Repair</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold text-forest mb-4">Installation Services</h3>
+                                <ul class="space-y-2">
+                                    <li class="flex items-center"><i class="fas fa-check text-mint mr-2"></i>Bathroom Renovations</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-mint mr-2"></i>Kitchen Plumbing</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-mint mr-2"></i>Pipe Replacement</li>
+                                    <li class="flex items-center"><i class="fas fa-check text-mint mr-2"></i>Fixture Installation</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center">
+                            <button onclick="callNow('212-555-7473')" class="bg-tangerine text-white px-8 py-4 rounded-lg text-xl font-semibold hover:bg-coral transition-colors">
+                                <i class="fas fa-phone mr-3"></i>Call Now: (212) 555-PIPE
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-gray-400">
-                <p>&copy; 2025 Gourav. All rights reserved.</p>
+        </section>
+
+        <!-- Similar pages for other cities would go here -->
+    </div>
+
+    <script>
+        function navigateToCity(cityName) {
+            window.location.href = `./new-york.html`;
+        }
+
+        function goBack() {
+            // Hide all city pages
+            document.getElementById('city-pages').classList.add('hidden');
+            document.querySelectorAll('.city-page').forEach(page => {
+                page.classList.add('hidden');
+            });
+            
+            // Show main content
+            document.querySelector('body > section:nth-child(1)').style.display = 'block';
+            document.querySelector('body > section:nth-child(2)').style.display = 'block';
+            document.querySelector('body > section:nth-child(3)').style.display = 'block';
+            document.querySelector('footer').style.display = 'block';
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        function callNow(phoneNumber) {
+            // For mobile devices, initiate phone call
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                window.location.href = `tel:${phoneNumber}`;
+            } else {
+                // For desktop, show phone number
+                alert(`Call us at: ${phoneNumber}\n\nOn mobile devices, this will automatically dial the number.`);
+            }
+        }
+
+        // Add click effect to cards
+        document.querySelectorAll('.city-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('button')) {
+                    const ripple = document.createElement('div');
+                    ripple.className = 'absolute bg-white opacity-25 rounded-full animate-ping';
+                    ripple.style.width = '20px';
+                    ripple.style.height = '20px';
+                    ripple.style.left = (e.offsetX - 10) + 'px';
+                    ripple.style.top = (e.offsetY - 10) + 'px';
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                }
+            });
+        });
+    </script>
+
+    <script>
+        function handleCityClick(cityName) {
+            // Add click animation
+            event.currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    event.currentTarget.style.transform = '';
+                }, 150);
+            }, 100);
+
+            // Show alert with city info (replace with actual functionality)
+            setTimeout(() => {
+                alert(`Plumbing Services in ${cityName}\n\n✓ 24/7 Emergency Service\n✓ Licensed & Insured Technicians\n✓ Same Day Service Available\n✓ Free Estimates\n\nCall (888) 658-8326 to schedule service in ${cityName}!`);
+            }, 300);
+        }
+
+        function showAllAreas() {
+            const areas = [
+                'Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island',
+                'Long Island', 'Westchester', 'Nassau County', 'Suffolk County',
+                'Jersey City', 'Hoboken', 'Newark', 'Yonkers', 'Mount Vernon'
+            ];
+            
+            alert(`Complete Service Coverage:\n\n${areas.join('\n• ')}\n\nAnd many more locations!\n\nCall (888) 658-8326 for service availability in your area.`);
+        }
+
+        // Add scroll animation for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Initialize cards with hidden state and observe them
+        window.addEventListener('load', () => {
+            const cityCards = document.querySelectorAll('[onclick*="handleCityClick"]');
+            cityCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+
+    
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                    <!-- Company Info -->
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <div class="orange-gradient text-white p-3 rounded-lg mr-3">
+                                <i class="fas fa-wrench text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold">ProPlumb USA</h3>
+                        </div>
+                        <p class="text-gray-200 mb-4">Your trusted plumbing professionals serving communities across the
+                            United States with excellence and reliability.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-white/20 hover:bg-tangerine p-2 rounded-lg transition-colors">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-white/20 hover:bg-tangerine p-2 rounded-lg transition-colors">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="bg-white/20 hover:bg-tangerine p-2 rounded-lg transition-colors">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-white/20 hover:bg-tangerine p-2 rounded-lg transition-colors">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div>
+                        <h4 class="text-xl font-bold mb-6">Contact Information</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-tangerine mr-3 mt-1"></i>
+                                <div>
+                                    <p class="font-semibold">Headquarters</p>
+                                    <p class="text-gray-200">123 Plumbing Way<br>Professional Plaza, Suite 456<br>New
+                                        York, NY 10001</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-tangerine mr-3"></i>
+                                <div>
+                                    <p class="font-semibold">(555) 123-PLUMB</p>
+                                    <p class="text-gray-200 text-sm">24/7 Emergency Line</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-tangerine mr-3"></i>
+                                <div>
+                                    <p class="font-semibold">info@proplumbusa.com</p>
+                                    <p class="text-gray-200 text-sm">General Inquiries</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Services -->
+                    <div>
+                        <h4 class="text-xl font-bold mb-6">Our Services</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Emergency
+                                    Plumbing</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Drain
+                                    Cleaning</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Water Heater
+                                    Services</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Bathroom
+                                    Remodeling</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Leak
+                                    Detection</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Pipe
+                                    Installation</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Fixture
+                                    Repair</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Commercial
+                                    Plumbing</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div>
+                        <h4 class="text-xl font-bold mb-6">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#about" class="text-gray-200 hover:text-tangerine transition-colors">About
+                                    Us</a></li>
+                            <li><a href="#contact" class="text-gray-200 hover:text-tangerine transition-colors">Contact
+                                    Us</a></li>
+                            <li><a href="#careers"
+                                    class="text-gray-200 hover:text-tangerine transition-colors">Careers</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Service
+                                    Areas</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Reviews</a>
+                            </li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Blog</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Privacy
+                                    Policy</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Terms of
+                                    Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service Areas -->
+                <div class="border-t border-white/20 pt-8 mb-8">
+                    <h4 class="text-xl font-bold mb-4 text-center">Service Areas</h4>
+                    <div class="flex flex-wrap justify-center gap-2 text-sm">
+                        <span class="bg-white/10 px-3 py-1 rounded-full">New York</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Los Angeles</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Chicago</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Houston</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Phoenix</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Philadelphia</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">San Antonio</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">San Diego</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Dallas</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">San Jose</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Austin</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Jacksonville</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Fort Worth</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Columbus</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Charlotte</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Seattle</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Denver</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Washington DC</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Boston</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Nashville</span>
+                    </div>
+                </div>
+
+                <!-- Bottom Footer -->
+                <div class="border-t border-white/20 pt-8 text-center">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-gray-200 mb-4 md:mb-0">
+                            © 2025 ProPlumb USA. All rights reserved. Licensed, Bonded & Insured.
+                        </p>
+                        <div class="flex items-center space-x-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-certificate text-tangerine mr-2"></i>
+                                <span class="text-sm">Licensed Contractors</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-shield-alt text-tangerine mr-2"></i>
+                                <span class="text-sm">Fully Insured</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-tangerine mr-2"></i>
+                                <span class="text-sm">24/7 Emergency</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript -->
+    <script>
+        let currentStep = 1;
+        let selectedServiceType = '';
+        let selectedCity = '';
+
+        // City search functionality
+        function searchCity() {
+            const cityInput = document.getElementById('citySearch').value;
+            if (cityInput.trim()) {
+                selectedCity = cityInput.trim();
+                alert(`Great! We provide service in ${selectedCity}. You can now proceed with your service request.`);
+                // You can add more sophisticated city validation here
+            } else {
+                alert('Please enter a city name');
+            }
+        }
+
+        function selectCity(city) {
+            selectedCity = city;
+            document.getElementById('citySearch').value = city;
+            alert(`${city} selected! We provide excellent service in your area.`);
+        }
+
+        // Service selection
+        function selectService(serviceType) {
+            selectedServiceType = serviceType;
+            const serviceNames = {
+                'emergency': 'Emergency Repair',
+                'drain': 'Drain Cleaning',
+                'water-heater': 'Water Heater Service',
+                'toilet': 'Toilet Services',
+                'faucet': 'Faucet & Fixtures',
+                'pipe': 'Pipe Services'
+            };
+
+            // Remove active class from all service cards
+            document.querySelectorAll('.service-card').forEach(card => {
+                card.classList.remove('ring-2', 'ring-tangerine', 'bg-tangerine/5');
+            });
+
+            // Add active class to selected card
+            event.currentTarget.classList.add('ring-2', 'ring-tangerine', 'bg-tangerine/5');
+
+            // Set the service name in step 2
+            document.getElementById('selectedService').value = serviceNames[serviceType];
+
+            // Auto advance to next step after a short delay
+            setTimeout(() => {
+                nextStep();
+            }, 500);
+        }
+
+        // Step navigation
+        function nextStep() {
+            if (currentStep < 3) {
+                // Hide current step
+                document.getElementById(`step${currentStep}`).classList.add('hidden');
+                document.getElementById(`step${currentStep}-indicator`).classList.remove('active');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('div').classList.remove('bg-tangerine', 'text-white');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('div').classList.add('bg-gray-300', 'text-gray-500');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('span').classList.remove('text-tangerine');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('span').classList.add('text-gray-500');
+
+                currentStep++;
+
+                // Show next step
+                document.getElementById(`step${currentStep}`).classList.remove('hidden');
+                document.getElementById(`step${currentStep}-indicator`).classList.add('active');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('div').classList.remove('bg-gray-300', 'text-gray-500');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('div').classList.add('bg-tangerine', 'text-white');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('span').classList.remove('text-gray-500');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('span').classList.add('text-tangerine');
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                // Hide current step
+                document.getElementById(`step${currentStep}`).classList.add('hidden');
+                document.getElementById(`step${currentStep}-indicator`).classList.remove('active');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('div').classList.remove('bg-tangerine', 'text-white');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('div').classList.add('bg-gray-300', 'text-gray-500');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('span').classList.remove('text-tangerine');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('span').classList.add('text-gray-500');
+
+                currentStep--;
+
+                // Show previous step
+                document.getElementById(`step${currentStep}`).classList.remove('hidden');
+                document.getElementById(`step${currentStep}-indicator`).classList.add('active');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('div').classList.remove('bg-gray-300', 'text-gray-500');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('div').classList.add('bg-tangerine', 'text-white');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('span').classList.remove('text-gray-500');
+                document.getElementById(`step${currentStep}-indicator`).querySelector('span').classList.add('text-tangerine');
+            }
+        }
+
+        function submitRequest() {
+            // Collect form data
+            const formData = {
+                city: selectedCity,
+                serviceType: selectedServiceType,
+                // Add other form fields as needed
+            };
+
+            // Show success message
+            alert('Thank you for your service request! A ProPlumb USA representative will contact you within 15 minutes to confirm your appointment.');
+
+            // Reset form (optional)
+            // resetForm();
+        }
+
+        // Utility functions
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        function callNow() {
+            window.location.href = 'tel:5551234567';
+        }
+
+        // Smooth scrolling for navigation links
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add smooth scrolling to all links with hash
+            const links = document.querySelectorAll('a[href^="#"]');
+            links.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Add intersection observer for animations
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe elements for animation
+            document.querySelectorAll('.service-card, .hover-lift').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        });
+
+        // Enhanced city search with suggestions
+        const cities = [
+            'New York', 'Los Angeles', 'Chicago', 'Houston', 'Phoenix', 'Philadelphia',
+            'San Antonio', 'San Diego', 'Dallas', 'San Jose', 'Austin', 'Jacksonville',
+            'Fort Worth', 'Columbus', 'Charlotte', 'Seattle', 'Denver', 'Washington DC',
+            'Boston', 'Nashville', 'Detroit', 'Oklahoma City', 'Portland', 'Las Vegas',
+            'Memphis', 'Louisville', 'Baltimore', 'Milwaukee', 'Albuquerque', 'Tucson',
+            'Fresno', 'Sacramento', 'Kansas City', 'Mesa', 'Atlanta', 'Omaha',
+            'Colorado Springs', 'Raleigh', 'Miami', 'Virginia Beach', 'Oakland',
+            'Minneapolis', 'Tulsa', 'Arlington', 'Tampa', 'New Orleans', 'Wichita',
+            'Cleveland', 'Bakersfield', 'Aurora', 'Anaheim', 'Honolulu', 'Santa Ana',
+            'Corpus Christi', 'Riverside', 'Lexington', 'Stockton', 'Henderson',
+            'Saint Paul', 'St. Louis', 'Cincinnati', 'Pittsburgh', 'Greensboro',
+            'Anchorage', 'Plano', 'Lincoln', 'Orlando', 'Irvine', 'Newark',
+            'Durham', 'Chula Vista', 'Toledo', 'Fort Wayne', 'St. Petersburg',
+            'Laredo', 'Jersey City', 'Chandler', 'Madison', 'Lubbock', 'Scottsdale',
+            'Reno', 'Buffalo', 'Gilbert', 'Glendale', 'North Las Vegas', 'Winston-Salem',
+            'Chesapeake', 'Norfolk', 'Fremont', 'Garland', 'Irving', 'Hialeah',
+            'Richmond', 'Boise', 'Spokane', 'Baton Rouge'
+        ];
+
+        // Add autocomplete functionality
+        document.getElementById('citySearch').addEventListener('input', function () {
+            const input = this.value.toLowerCase();
+            const suggestions = cities.filter(city =>
+                city.toLowerCase().includes(input)
+            ).slice(0, 5);
+
+            // You can implement a dropdown suggestion list here
+            console.log('Suggestions:', suggestions);
+        });
+    </script>
 </body>
+
 </html>

@@ -1,0 +1,1281 @@
+<!DOCTYPE html >
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProPlumb USA - Professional Plumbing Services</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'forest': '#1a4d3a',
+                        'emerald': '#2d6a4f',
+                        'sage': '#40916c',
+                        'mint': '#52b788',
+                        'tangerine': '#ff6b35',
+                        'coral': '#f7931e',
+                        'amber': '#ffb627'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #1a4d3a 0%, #2d6a4f 50%, #40916c 100%);
+        }
+
+        .orange-gradient {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 50%, #ffb627 100%);
+        }
+
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .step-indicator {
+            position: relative;
+        }
+
+        .step-indicator.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b35, #f7931e);
+            border-radius: 2px;
+        }
+
+        .service-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fffe 100%);
+            border: 1px solid rgba(45, 106, 79, 0.1);
+        }
+
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+
+            80%,
+            100% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Borough Tab Styles */
+        .borough-tab {
+            background: rgba(26, 77, 58, 0.1);
+            color: #1a4d3a;
+            border: 2px solid transparent;
+        }
+
+        .borough-tab:hover {
+            background: rgba(255, 107, 53, 0.1);
+            border-color: #ff6b35;
+            transform: translateY(-2px);
+        }
+
+        .borough-tab.active {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+            color: white;
+            border-color: #ff6b35;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        /* City Card Styles */
+        .city-card {
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .city-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 107, 53, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .city-card:hover::before {
+            left: 100%;
+        }
+
+        .stats-card {
+            background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+        }
+
+        .image-overlay {
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.9) 0%, rgba(45, 106, 79, 0.8) 100%);
+        }
+
+        .wave-bg {
+            background: linear-gradient(135deg, #f8fffe 0%, #e8f5f3 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wave-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+         .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .carousel-track {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .carousel-slide {
+            min-width: 100%;
+            height: 500px;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            padding: 2rem;
+        }
+        
+        .carousel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.1));
+        }
+        
+        .carousel-content {
+            position: relative;
+            z-index: 10;
+            color: white;
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 20;
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .indicator.active {
+            background: #ff6b35;
+            transform: scale(1.2);
+        }
+        
+        @media (max-width: 1024px) {
+            .carousel-slide {
+                height: 400px;
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 640px) {
+            .carousel-slide {
+                height: 300px;
+                padding: 1rem;
+            }
+        }
+    </style>
+    <style>
+        .thin-scrollbar::-webkit-scrollbar {
+            width: 6px !important;
+        }
+        .thin-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(0, 0, 0, 0.3) !important;
+            border-radius: 3px !important;
+        }
+        .thin-scrollbar::-webkit-scrollbar-track {
+            background: transparent !important;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans" class="thin-scrollbar">
+        <section
+        class="bg-gradient-to-r from-forest via-emerald to-sage min-h-screen flex items-center relative overflow-hidden">
+        <div class="container mx-auto px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-12 items-center min-h-screen">
+                <!-- Content Side -->
+                <div class="text-white space-y-8 lg:pr-12">
+                    <!-- Brand Badge -->
+                    <div
+                        class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 border border-white/20">
+                        <div class="w-2 h-2 bg-tangerine rounded-full"></div>
+                        <span class="text-sm font-medium tracking-wide">NEWSERVICE NYC</span>
+                    </div>
+
+                    <!-- Main Heading -->
+                    <div class="space-y-6">
+                        <h1 class="text-5xl lg:text-7xl font-bold leading-tight">
+                            #1 <span class="text-tangerine">Plumbing</span> Company in NYC
+                        </h1>
+                    </div>
+
+                    <!-- Service Highlights -->
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-tangerine rounded-full flex-shrink-0"></div>
+                            <span class="text-lg font-medium">Your Trusted Plumbers in NYC – Reliable and
+                                Affordable</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-tangerine rounded-full flex-shrink-0"></div>
+                            <span class="text-lg font-medium">Expert Solutions for Every Plumbing Challenge, Big or
+                                Small</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-2 h-2 bg-tangerine rounded-full flex-shrink-0"></div>
+                            <span class="text-lg font-medium">Serving 24/7 for the City That Never Sleeps – NEWSERVICE
+                                NYC is Here for You</span>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <button
+                            class="bg-tangerine hover:bg-coral text-white font-bold px-8 py-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg text-lg">
+                            Book Service Now
+                        </button>
+                        <button
+                            class="border-2 border-white/50 hover:border-white text-white font-bold px-8 py-4 rounded-lg transition-all duration-300 hover:bg-white/10 backdrop-blur-sm text-lg">
+                            <i class="fas fa-phone mr-2"></i>
+                            (888) 668-6256
+                        </button>
+                    </div>
+
+                    <!-- Reviews Section -->
+                    <div class="flex items-center space-x-4 pt-6">
+                        <div class="flex items-center space-x-2">
+                            <div class="flex -space-x-2">
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-r from-tangerine to-coral rounded-full border-2 border-white flex items-center justify-center">
+                                    <span class="text-white text-sm font-bold">J</span>
+                                </div>
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-r from-coral to-amber rounded-full border-2 border-white flex items-center justify-center">
+                                    <span class="text-white text-sm font-bold">M</span>
+                                </div>
+                                <div
+                                    class="w-10 h-10 bg-gradient-to-r from-amber to-tangerine rounded-full border-2 border-white flex items-center justify-center">
+                                    <span class="text-white text-sm font-bold">S</span>
+                                </div>
+                            </div>
+                            <div class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
+                                <span class="text-tangerine font-bold text-lg">G</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-1">
+                            <i class="fas fa-star text-amber"></i>
+                            <i class="fas fa-star text-amber"></i>
+                            <i class="fas fa-star text-amber"></i>
+                            <i class="fas fa-star text-amber"></i>
+                            <i class="fas fa-star text-amber"></i>
+                        </div>
+                        <div class="text-white">
+                            <span class="font-semibold">4K Reviews</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Side -->
+                <div class="flex justify-center items-center">
+                    <div class="carousel-container w-full max-w-lg">
+                        <div class="carousel-track" id="carouselTrack">
+                            <!-- Slide 1 - Emergency Repair -->
+                            <div class="carousel-slide"
+                                style="background-image: url('./assets/new/image4.jpeg');">
+                                <div class="carousel-overlay"></div>
+                                <div class="carousel-content">
+                                    <h3 class="text-2xl font-bold mb-2">Emergency Repairs</h3>
+                                    <p class="text-lg opacity-90">24/7 urgent plumbing solutions</p>
+                                </div>
+                            </div>
+
+                            <!-- Slide 2 - Pipe Installation -->
+                            <div class="carousel-slide"
+                                style="background-image: url('./assets/new/image2.jpg');">
+                                <div class="carousel-overlay"></div>
+                                <div class="carousel-content">
+                                    <h3 class="text-2xl font-bold mb-2">Pipe Installation</h3>
+                                    <p class="text-lg opacity-90">Professional pipe fitting & installation</p>
+                                </div>
+                            </div>
+
+                            <!-- Slide 3 - Drain Cleaning -->
+                            <div class="carousel-slide"
+                                style="background-image: url('./assets/new/image1.avif');">
+                                <div class="carousel-overlay"></div>
+                                <div class="carousel-content">
+                                    <h3 class="text-2xl font-bold mb-2">Drain Cleaning</h3>
+                                    <p class="text-lg opacity-90">Clear blockages & restore flow</p>
+                                </div>
+                            </div>
+
+                            <!-- Slide 4 - Water Heater Service -->
+                            <div class="carousel-slide"
+                                style="background-image: url('./assets/new/image3.avif');">
+                                <div class="carousel-overlay"></div>
+                                <div class="carousel-content">
+                                    <h3 class="text-2xl font-bold mb-2">Water Heater Service</h3>
+                                    <p class="text-lg opacity-90">Installation, repair & maintenance</p>
+                                </div>
+                            </div>
+
+                            <!-- Slide 5 - Bathroom Renovation -->
+                            <div class="carousel-slide"
+                                style="background-image: url('./assets/new/image2.jpg');">
+                                <div class="carousel-overlay"></div>
+                                <div class="carousel-content">
+                                    <h3 class="text-2xl font-bold mb-2">Bathroom Renovation</h3>
+                                    <p class="text-lg opacity-90">Complete bathroom plumbing solutions</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Carousel Indicators -->
+                        <div class="carousel-indicators">
+                            <div class="indicator active" data-slide="0"></div>
+                            <div class="indicator" data-slide="1"></div>
+                            <div class="indicator" data-slide="2"></div>
+                            <div class="indicator" data-slide="3"></div>
+                            <div class="indicator" data-slide="4"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Background Elements -->
+        <div class="absolute top-20 right-20 w-32 h-32 bg-white/5 rounded-full blur-xl"></div>
+        <div class="absolute bottom-20 left-20 w-24 h-24 bg-tangerine/20 rounded-full blur-lg"></div>
+        <div class="absolute top-1/2 left-1/4 w-16 h-16 bg-white/10 rounded-full blur-md"></div>
+    </section>
+
+    <script>
+        class ImageCarousel {
+            constructor() {
+                this.track = document.getElementById('carouselTrack');
+                this.indicators = document.querySelectorAll('.indicator');
+                this.currentSlide = 0;
+                this.totalSlides = 5;
+                this.autoSlideInterval = null;
+
+                this.init();
+            }
+
+            init() {
+                this.setupIndicators();
+                this.startAutoSlide();
+                this.setupHoverPause();
+            }
+
+            setupIndicators() {
+                this.indicators.forEach((indicator, index) => {
+                    indicator.addEventListener('click', () => {
+                        this.goToSlide(index);
+                        this.resetAutoSlide();
+                    });
+                });
+            }
+
+            goToSlide(slideIndex) {
+                this.currentSlide = slideIndex;
+                const translateX = -(slideIndex * 100);
+                this.track.style.transform = `translateX(${translateX}%)`;
+
+                // Update indicators
+                this.indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === slideIndex);
+                });
+            }
+
+            nextSlide() {
+                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+                this.goToSlide(this.currentSlide);
+            }
+
+            startAutoSlide() {
+                this.autoSlideInterval = setInterval(() => {
+                    this.nextSlide();
+                }, 4000); // Change slide every 4 seconds
+            }
+
+            stopAutoSlide() {
+                if (this.autoSlideInterval) {
+                    clearInterval(this.autoSlideInterval);
+                    this.autoSlideInterval = null;
+                }
+            }
+
+            resetAutoSlide() {
+                this.stopAutoSlide();
+                this.startAutoSlide();
+            }
+
+            setupHoverPause() {
+                const carousel = document.querySelector('.carousel-container');
+                carousel.addEventListener('mouseenter', () => {
+                    this.stopAutoSlide();
+                });
+
+                carousel.addEventListener('mouseleave', () => {
+                    this.startAutoSlide();
+                });
+            }
+        }
+
+        // Initialize carousel when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ImageCarousel();
+        });
+
+        // Add smooth hover effects to buttons
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.addEventListener('mouseenter', () => {
+                    button.style.transform = 'translateY(-2px)';
+                });
+
+                button.addEventListener('mouseleave', () => {
+                    button.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+
+    <section class="py-16 lg:py-24 wave-bg relative">
+        <!-- Animated Wave Background -->
+        <svg class="wave-pattern" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="waveGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:#52b788;stop-opacity:0.3" />
+                    <stop offset="50%" style="stop-color:#40916c;stop-opacity:0.2" />
+                    <stop offset="100%" style="stop-color:#2d6a4f;stop-opacity:0.1" />
+                </linearGradient>
+            </defs>
+            <path d="M0,300 Q300,200 600,300 T1200,250 L1200,800 L0,800 Z" fill="url(#waveGradient)">
+                <animate attributeName="d" values="M0,300 Q300,200 600,300 T1200,250 L1200,800 L0,800 Z;
+                                M0,250 Q300,350 600,250 T1200,300 L1200,800 L0,800 Z;
+                                M0,300 Q300,200 600,300 T1200,250 L1200,800 L0,800 Z" dur="8s"
+                    repeatCount="indefinite" />
+            </path>
+            <path d="M0,400 Q400,300 800,400 T1200,350 L1200,800 L0,800 Z" fill="url(#waveGradient)">
+                <animate attributeName="d" values="M0,400 Q400,300 800,400 T1200,350 L1200,800 L0,800 Z;
+                                M0,350 Q400,450 800,350 T1200,400 L1200,800 L0,800 Z;
+                                M0,400 Q400,300 800,400 T1200,350 L1200,800 L0,800 Z" dur="12s"
+                    repeatCount="indefinite" />
+            </path>
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Header Badge -->
+            <div class="text-center mb-8">
+                <span
+                    class="inline-flex items-center px-6 py-3 rounded-full text-sm font-bold bg-tangerine text-white shadow-lg floating">
+                    <i class="fas fa-clock mr-2"></i>
+                    SERVING 24/7 FOR THE CITY THAT NEVER SLEEPS
+                </span>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                <!-- Left Side - Images and Stats -->
+                <div class="relative">
+                    <!-- Main Image Grid -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <!-- Top Left - Pipe Repair -->
+                        <div
+                            class="relative overflow-hidden rounded-3xl shadow-xl hover-lift bg-gradient-to-br from-sage to-mint p-6">
+                            <div class="text-center text-white">
+                                <i class="fas fa-wrench text-4xl mb-4 opacity-90"></i>
+                                <h3 class="font-bold text-lg mb-2">Expert Repairs</h3>
+                                <p class="text-sm opacity-90">Professional pipe & fixture repairs</p>
+                            </div>
+                        </div>
+
+                        <!-- Top Right - Emergency Service -->
+                        <div
+                            class="relative overflow-hidden rounded-3xl shadow-xl hover-lift bg-gradient-to-br from-emerald to-forest p-6">
+                            <div class="text-center text-white">
+                                <i class="fas fa-tools text-4xl mb-4 opacity-90"></i>
+                                <h3 class="font-bold text-lg mb-2">Installation</h3>
+                                <p class="text-sm opacity-90">Complete plumbing installations</p>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Left - Stats Card -->
+                        <div class="stats-card rounded-3xl p-6 text-white text-center shadow-xl hover-lift">
+                            <div class="text-4xl font-bold mb-2">560+</div>
+                            <div class="text-sm font-medium opacity-90">Projects Done</div>
+                        </div>
+
+                        <!-- Bottom Right - Emergency Service -->
+                        <div
+                            class="relative overflow-hidden rounded-3xl shadow-xl hover-lift bg-gradient-to-br from-mint to-sage p-6">
+                            <div class="text-center text-white">
+                                <i class="fas fa-clock text-4xl mb-4 opacity-90"></i>
+                                <h3 class="font-bold text-lg mb-2">24/7 Service</h3>
+                                <p class="text-sm opacity-90">Emergency plumbing support</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Stats Card -->
+                    <div
+                        class="absolute -bottom-6 -right-6 stats-card rounded-3xl p-6 text-white text-center shadow-2xl hover-lift z-10">
+                        <div class="text-4xl font-bold mb-2">150+</div>
+                        <div class="text-sm font-medium opacity-90">Technicians</div>
+                    </div>
+
+                    <!-- Decorative Elements -->
+                    <div class="absolute -top-4 -left-4 w-20 h-20 bg-mint rounded-full opacity-20 floating"></div>
+                    <div class="absolute top-1/2 -right-8 w-12 h-12 bg-tangerine rounded-full opacity-30 floating"
+                        style="animation-delay: -2s;"></div>
+                </div>
+
+                <!-- Right Side - Content -->
+                <div class="space-y-8">
+                    <div>
+                        <h2 class="text-2xl lg:text-5xl font-bold text-forest leading-tight mb-6">
+                            Need a Plumber in New York? Expert
+                            <span class="text-transparent bg-clip-text orange-gradient">Plumbing Service</span>
+                            is One Call Away!
+                        </h2>
+
+                        <div class="space-y-6 text-emerald leading-relaxed text-lg">
+                            <p>
+                                Did you know that even <span class="font-semibold text-forest">small plumbing
+                                    problems</span> can turn into big headaches if you don't tackle them right away?
+                                Issues like leaky faucets, running toilets, clogged drains, and broken water heaters can
+                                disrupt your daily life and lead to costly damage.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Call to Action -->
+                    <div class="pt-4">
+                        <button
+                            class="group relative inline-flex items-center px-10 py-5 orange-gradient hover:shadow-2xl text-white font-bold text-xl rounded-full shadow-xl transition-all duration-300 transform hover:scale-105">
+                            <div class="absolute inset-0 bg-coral rounded-full pulse-ring opacity-40"></div>
+                            <i class="fas fa-phone mr-4 text-2xl"></i>
+                            <span>(888) 658-8326</span>
+                        </button>
+                    </div>
+
+                    <!-- Trust Indicators -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-8">
+                        <div
+                            class="flex items-center justify-center sm:justify-start space-x-3 bg-white/40 backdrop-blur-sm rounded-xl p-4 border border-mint/20">
+                            <div class="flex text-amber">
+                                <i class="fas fa-star text-lg"></i>
+                                <i class="fas fa-star text-lg"></i>
+                                <i class="fas fa-star text-lg"></i>
+                                <i class="fas fa-star text-lg"></i>
+                                <i class="fas fa-star text-lg"></i>
+                            </div>
+                            <span class="text-sm text-forest font-bold">5.0 Rating</span>
+                        </div>
+
+                        <div
+                            class="flex items-center justify-center sm:justify-start space-x-3 bg-white/40 backdrop-blur-sm rounded-xl p-4 border border-mint/20">
+                            <i class="fas fa-shield-alt text-sage text-xl"></i>
+                            <span class="text-sm font-bold text-forest">Licensed & Insured</span>
+                        </div>
+
+                        <div
+                            class="flex items-center justify-center sm:justify-start space-x-3 bg-white/40 backdrop-blur-sm rounded-xl p-4 border border-mint/20">
+                            <i class="fas fa-clock text-tangerine text-xl"></i>
+                            <span class="text-sm font-bold text-forest">24/7 Emergency</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Services Bar -->
+    <section class="bg-white py-12 shadow-2xl relative overflow-hidden">
+        <!-- Background SVG Pattern -->
+        <svg class="absolute inset-0 w-full h-full opacity-5" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="servicePattern" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+                    <circle cx="40" cy="40" r="2" fill="#1a4d3a"/>
+                    <circle cx="0" cy="0" r="1" fill="#2d6a4f"/>
+                    <circle cx="80" cy="80" r="1" fill="#40916c"/>
+                    <path d="M20,20 Q40,10 60,20 T100,30" stroke="#52b788" stroke-width="0.5" fill="none" opacity="0.3"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#servicePattern)"/>
+        </svg>
+
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Pipe Repair Card -->
+                <div class="group cursor-pointer transform transition-all duration-500 hover:scale-105">
+                    <div class="relative bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl border border-sage/10 overflow-hidden">
+                        <!-- Card Background SVG -->
+                        <svg class="absolute top-0 right-0 w-24 h-24 opacity-10 transform rotate-12 group-hover:rotate-45 transition-transform duration-500" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#1a4d3a" stroke-width="2"/>
+                            <path d="M30,50 L45,35 M45,35 L70,50 M70,50 L45,65 M45,65 L30,50" stroke="#2d6a4f" stroke-width="3" fill="none"/>
+                        </svg>
+                        
+                        <div class="relative z-10">
+                            <div class="w-20 h-20 bg-gradient-to-br from-forest to-emerald rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transform group-hover:-translate-y-1 transition-all duration-300">
+                                <i class="fas fa-wrench text-white text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-forest text-lg mb-2 group-hover:text-sage transition-colors">Pipe Repair</h4>
+                            <p class="text-emerald text-sm opacity-80 group-hover:opacity-100">Professional pipe fixes & replacements</p>
+                        </div>
+                        
+                        <!-- Hover Glow Effect -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-mint/5 to-sage/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+                    </div>
+                </div>
+
+                <!-- Leak Detection Card -->
+                <div class="group cursor-pointer transform transition-all duration-500 hover:scale-105">
+                    <div class="relative bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl border border-sage/10 overflow-hidden">
+                        <!-- Card Background SVG -->
+                        <svg class="absolute top-0 right-0 w-24 h-24 opacity-10 transform rotate-12 group-hover:rotate-45 transition-transform duration-500" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="30" r="3" fill="#2d6a4f"/>
+                            <circle cx="50" cy="40" r="4" fill="#40916c" opacity="0.7"/>
+                            <circle cx="50" cy="52" r="5" fill="#52b788" opacity="0.5"/>
+                            <circle cx="50" cy="66" r="6" fill="#52b788" opacity="0.3"/>
+                            <path d="M30,80 Q50,70 70,80" stroke="#1a4d3a" stroke-width="2" fill="none"/>
+                        </svg>
+                        
+                        <div class="relative z-10">
+                            <div class="w-20 h-20 bg-gradient-to-br from-sage to-mint rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transform group-hover:-translate-y-1 transition-all duration-300">
+                                <i class="fas fa-tint text-white text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-forest text-lg mb-2 group-hover:text-sage transition-colors">Leak Detection</h4>
+                            <p class="text-emerald text-sm opacity-80 group-hover:opacity-100">Advanced leak finding technology</p>
+                        </div>
+                        
+                        <!-- Hover Glow Effect -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-mint/5 to-sage/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+                    </div>
+                </div>
+
+                <!-- Drain Cleaning Card -->
+                <div class="group cursor-pointer transform transition-all duration-500 hover:scale-105">
+                    <div class="relative bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl border border-sage/10 overflow-hidden">
+                        <!-- Card Background SVG -->
+                        <svg class="absolute top-0 right-0 w-24 h-24 opacity-10 transform rotate-12 group-hover:rotate-45 transition-transform duration-500" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="20" fill="none" stroke="#1a4d3a" stroke-width="2"/>
+                            <path d="M35,50 Q50,35 65,50 Q50,65 35,50" fill="#2d6a4f" opacity="0.3"/>
+                            <path d="M40,50 L45,45 M55,45 L60,50 M45,55 L50,50 M50,50 L55,55" stroke="#40916c" stroke-width="2"/>
+                        </svg>
+                        
+                        <div class="relative z-10">
+                            <div class="w-20 h-20 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transform group-hover:-translate-y-1 transition-all duration-300">
+                                <i class="fas fa-toilet text-white text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-forest text-lg mb-2 group-hover:text-sage transition-colors">Drain Cleaning</h4>
+                            <p class="text-emerald text-sm opacity-80 group-hover:opacity-100">Complete drain & sewer cleaning</p>
+                        </div>
+                        
+                        <!-- Hover Glow Effect -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-mint/5 to-sage/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+                    </div>
+                </div>
+
+                <!-- Fixture Install Card -->
+                <div class="group cursor-pointer transform transition-all duration-500 hover:scale-105">
+                    <div class="relative bg-gradient-to-br from-white to-gray-50 rounded-3xl p-8 shadow-lg hover:shadow-2xl border border-sage/10 overflow-hidden">
+                        <!-- Card Background SVG -->
+                        <svg class="absolute top-0 right-0 w-24 h-24 opacity-10 transform rotate-12 group-hover:rotate-45 transition-transform duration-500" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="30" y="20" width="40" height="60" rx="5" fill="none" stroke="#1a4d3a" stroke-width="2"/>
+                            <circle cx="50" cy="35" r="8" fill="#2d6a4f" opacity="0.3"/>
+                            <path d="M42,50 L58,50 M45,60 L55,60 M47,70 L53,70" stroke="#40916c" stroke-width="2"/>
+                        </svg>
+                        
+                        <div class="relative z-10">
+                            <div class="w-20 h-20 bg-gradient-to-br from-mint to-sage rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transform group-hover:-translate-y-1 transition-all duration-300">
+                                <i class="fas fa-shower text-white text-2xl"></i>
+                            </div>
+                            <h4 class="font-bold text-forest text-lg mb-2 group-hover:text-sage transition-colors">Fixture Install</h4>
+                            <p class="text-emerald text-sm opacity-80 group-hover:opacity-100">Expert fixture installation service</p>
+                        </div>
+                        
+                        <!-- Hover Glow Effect -->
+                        <div class="absolute inset-0 bg-gradient-to-br from-mint/5 to-sage/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Decorative Wave -->
+            <div class="mt-8 text-center">
+                <svg class="mx-auto opacity-20" width="200" height="20" viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,10 Q50,0 100,10 T200,10" stroke="url(#bottomGrad)" stroke-width="2" fill="none">
+                        <animate attributeName="d" 
+                                 values="M0,10 Q50,0 100,10 T200,10;M0,10 Q50,20 100,10 T200,10;M0,10 Q50,0 100,10 T200,10"
+                                 dur="4s" 
+                                 repeatCount="indefinite"/>
+                    </path>
+                    <defs>
+                        <linearGradient id="bottomGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#1a4d3a"/>
+                            <stop offset="50%" style="stop-color:#40916c"/>
+                            <stop offset="100%" style="stop-color:#52b788"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+    </section>
+
+      <!-- Service Areas - Cities Cards -->
+    <section class="py-16 lg:py-20 gradient-bg relative overflow-hidden">
+        <!-- Background Pattern -->
+        <svg class="absolute inset-0 w-full h-full opacity-10" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <pattern id="cityPattern" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+                    <rect x="20" y="60" width="15" height="30" fill="#52b788" opacity="0.3"/>
+                    <rect x="40" y="45" width="12" height="45" fill="#40916c" opacity="0.3"/>
+                    <rect x="60" y="50" width="18" height="40" fill="#2d6a4f" opacity="0.3"/>
+                    <circle cx="50" cy="20" r="8" fill="#ff6b35" opacity="0.2"/>
+                </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#cityPattern)"/>
+        </svg>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-12">
+                <h2 class="text-4xl lg:text-5xl font-bold text-white mb-4">
+                    Service Areas in 
+                    <span class="text-transparent bg-clip-text orange-gradient">New York</span>
+                </h2>
+                <p class="text-xl text-white/90 max-w-3xl mx-auto">
+                    Professional plumbing services available 24/7 across all NYC boroughs and surrounding areas
+                </p>
+                <div class="mt-6">
+                    <svg class="mx-auto" width="100" height="20" viewBox="0 0 100 20" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0,10 Q25,0 50,10 T100,10" stroke="#ff6b35" stroke-width="3" fill="none" opacity="0.8">
+                            <animate attributeName="d" 
+                                     values="M0,10 Q25,0 50,10 T100,10;M0,10 Q25,20 50,10 T100,10;M0,10 Q25,0 50,10 T100,10"
+                                     dur="3s" 
+                                     repeatCount="indefinite"/>
+                        </path>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- NYC Boroughs Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <!-- Manhattan -->
+                <div class="group cursor-pointer transform transition-all duration-500 hover:scale-105" onclick="handleCityClick('Manhattan')">
+                    <div class="relative bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl border border-white/20 overflow-hidden">
+                        <!-- City Background SVG -->
+                        <svg class="absolute top-0 right-0 w-32 h-32 opacity-10 transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="40" width="15" height="60" fill="#1a4d3a"/>
+                            <rect x="40" y="25" width="12" height="75" fill="#2d6a4f"/>
+                            <rect x="55" y="35" width="18" height="65" fill="#40916c"/>
+                            <rect x="80" y="20" width="14" height="80" fill="#52b788"/>
+                            <circle cx="60" cy="10" r="6" fill="#ff6b35"/>
+                        </svg>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-forest to-emerald rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transform group-hover:-translate-y-1 transition-all duration-300">
+                                <i class="fas fa-city text-white text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-forest mb-2 group-hover:text-sage transition-colors">Manhattan</h3>
+                            <p class="text-emerald mb-4">Complete plumbing services in the heart of NYC</p>
+                            <div class="flex items-center text-sm text-sage">
+                                <i class="fas fa-clock mr-2"></i>
+                                <span>24/7 Emergency Service</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Click Indicator -->
+                        <div class="absolute bottom-4 right-4 w-8 h-8 bg-tangerine rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <i class="fas fa-arrow-right text-white text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Brooklyn -->
+                <div class="group cursor-pointer transform transition-all duration-500 hover:scale-105" onclick="handleCityClick('Brooklyn')">
+                    <div class="relative bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl border border-white/20 overflow-hidden">
+                        <svg class="absolute top-0 right-0 w-32 h-32 opacity-10 transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M20,80 Q40,60 60,80 Q80,100 100,80" stroke="#2d6a4f" stroke-width="8" fill="none"/>
+                            <rect x="30" y="50" width="12" height="40" fill="#40916c"/>
+                            <rect x="50" y="45" width="15" height="45" fill="#52b788"/>
+                            <rect x="70" y="55" width="10" height="35" fill="#1a4d3a"/>
+                        </svg>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sage to-mint rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transform group-hover:-translate-y-1 transition-all duration-300">
+                                <i class="fas fa-home text-white text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-forest mb-2 group-hover:text-sage transition-colors">Brooklyn</h3>
+                            <p class="text-emerald mb-4">Residential & commercial plumbing experts</p>
+                            <div class="flex items-center text-sm text-sage">
+                                <i class="fas fa-tools mr-2"></i>
+                                <span>All Plumbing Services</span>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute bottom-4 right-4 w-8 h-8 bg-tangerine rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <i class="fas fa-arrow-right text-white text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Queens -->
+                <div class="group cursor-pointer transform transition-all duration-500 hover:scale-105" onclick="handleCityClick('Queens')">
+                    <div class="relative bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl border border-white/20 overflow-hidden">
+                        <svg class="absolute top-0 right-0 w-32 h-32 opacity-10 transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <polygon points="60,20 80,50 100,40 90,70 110,90 80,85 60,100 40,85 10,90 30,70 20,40 40,50" fill="#40916c" opacity="0.5"/>
+                            <circle cx="60" cy="60" r="15" fill="#52b788" opacity="0.7"/>
+                        </svg>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-emerald to-forest rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transform group-hover:-translate-y-1 transition-all duration-300">
+                                <i class="fas fa-building text-white text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-forest mb-2 group-hover:text-sage transition-colors">Queens</h3>
+                            <p class="text-emerald mb-4">Diverse neighborhoods, reliable service</p>
+                            <div class="flex items-center text-sm text-sage">
+                                <i class="fas fa-wrench mr-2"></i>
+                                <span>Expert Repairs</span>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute bottom-4 right-4 w-8 h-8 bg-tangerine rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <i class="fas fa-arrow-right text-white text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bronx -->
+                <div class="group cursor-pointer transform transition-all duration-500 hover:scale-105" onclick="handleCityClick('Bronx')">
+                    <div class="relative bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl border border-white/20 overflow-hidden">
+                        <svg class="absolute top-0 right-0 w-32 h-32 opacity-10 transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="25" y="60" width="20" height="40" fill="#2d6a4f"/>
+                            <rect x="50" y="45" width="18" height="55" fill="#40916c"/>
+                            <rect x="75" y="55" width="16" height="45" fill="#52b788"/>
+                            <path d="M20,30 Q60,10 100,30" stroke="#1a4d3a" stroke-width="4" fill="none"/>
+                        </svg>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-mint to-sage rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transform group-hover:-translate-y-1 transition-all duration-300">
+                                <i class="fas fa-hammer text-white text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-forest mb-2 group-hover:text-sage transition-colors">Bronx</h3>
+                            <p class="text-emerald mb-4">Fast response, quality workmanship</p>
+                            <div class="flex items-center text-sm text-sage">
+                                <i class="fas fa-shield-alt mr-2"></i>
+                                <span>Licensed & Insured</span>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute bottom-4 right-4 w-8 h-8 bg-tangerine rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <i class="fas fa-arrow-right text-white text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Staten Island -->
+                <div class="group cursor-pointer transform transition-all duration-500 hover:scale-105" onclick="handleCityClick('Staten Island')">
+                    <div class="relative bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl border border-white/20 overflow-hidden">
+                        <svg class="absolute top-0 right-0 w-32 h-32 opacity-10 transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <ellipse cx="60" cy="60" rx="40" ry="25" fill="#52b788" opacity="0.3"/>
+                            <path d="M30,45 Q60,30 90,45 Q75,75 60,70 Q45,75 30,45" fill="#40916c" opacity="0.4"/>
+                            <circle cx="60" cy="50" r="8" fill="#2d6a4f"/>
+                        </svg>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-forest to-mint rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transform group-hover:-translate-y-1 transition-all duration-300">
+                                <i class="fas fa-water text-white text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-forest mb-2 group-hover:text-sage transition-colors">Staten Island</h3>
+                            <p class="text-emerald mb-4">Island-wide plumbing solutions</p>
+                            <div class="flex items-center text-sm text-sage">
+                                <i class="fas fa-phone mr-2"></i>
+                                <span>Same Day Service</span>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute bottom-4 right-4 w-8 h-8 bg-tangerine rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <i class="fas fa-arrow-right text-white text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Long Island -->
+                <div class="group cursor-pointer transform transition-all duration-500 hover:scale-105" onclick="handleCityClick('Long Island')">
+                    <div class="relative bg-white/95 backdrop-blur-sm rounded-3xl p-8 shadow-xl hover:shadow-2xl border border-white/20 overflow-hidden">
+                        <svg class="absolute top-0 right-0 w-32 h-32 opacity-10 transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="50" width="80" height="20" rx="10" fill="#40916c" opacity="0.4"/>
+                            <circle cx="35" cy="40" r="5" fill="#52b788"/>
+                            <circle cx="60" cy="35" r="6" fill="#2d6a4f"/>
+                            <circle cx="85" cy="40" r="5" fill="#1a4d3a"/>
+                        </svg>
+                        
+                        <div class="relative z-10">
+                            <div class="w-16 h-16 bg-gradient-to-br from-sage to-emerald rounded-2xl flex items-center justify-center mb-4 shadow-lg group-hover:shadow-xl transform group-hover:-translate-y-1 transition-all duration-300">
+                                <i class="fas fa-map-marked-alt text-white text-xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-forest mb-2 group-hover:text-sage transition-colors">Long Island</h3>
+                            <p class="text-emerald mb-4">Extended service area coverage</p>
+                            <div class="flex items-center text-sm text-sage">
+                                <i class="fas fa-truck mr-2"></i>
+                                <span>Mobile Service</span>
+                            </div>
+                        </div>
+                        
+                        <div class="absolute bottom-4 right-4 w-8 h-8 bg-tangerine rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <i class="fas fa-arrow-right text-white text-sm"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action Footer -->
+            <div class="text-center">
+                <div class="bg-white/10 backdrop-blur-sm rounded-3xl p-8 border border-white/20">
+                    <h3 class="text-2xl font-bold text-white mb-4">Don't See Your Area?</h3>
+                    <p class="text-white/90 mb-6 max-w-2xl mx-auto">We serve the entire NYC metropolitan area and surrounding regions. Call us to confirm service availability in your location.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                        <button class="orange-gradient hover:shadow-xl text-white font-bold px-8 py-4 rounded-full transition-all duration-300 transform hover:scale-105">
+                            <i class="fas fa-phone mr-2"></i>
+                            Call (888) 658-8326
+                        </button>
+                        <button onclick="showAllAreas()" class="bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white font-semibold px-8 py-4 rounded-full border border-white/30 transition-all duration-300">
+                            <i class="fas fa-map mr-2"></i>
+                            View All Service Areas
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .city-card {
+            transition: all 0.3s ease;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .city-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+        }
+        .city-overlay {
+            background: linear-gradient(135deg, rgba(26, 77, 58, 0.85), rgba(82, 183, 136, 0.75));
+        }
+        .service-icon {
+            transition: transform 0.3s ease;
+        }
+        .city-card:hover .service-icon {
+            transform: scale(1.1);
+        }
+        .call-btn {
+            transition: all 0.3s ease;
+        }
+        .call-btn:hover {
+            transform: scale(1.05);
+        }
+        .city-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+    </style>
+
+        <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold text-forest mb-4">Get In Touch</h2>
+                    <p class="text-xl text-gray-600">Ready to solve your plumbing problems? Contact us today!</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <div class="space-y-8">
+                            <div class="flex items-start">
+                                <div class="orange-gradient text-white p-3 rounded-lg mr-4">
+                                    <i class="fas fa-phone text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-forest mb-2">Phone</h3>
+                                    <p class="text-gray-600">Call us 24/7 for emergency service</p>
+                                    <p class="text-lg font-semibold text-tangerine">(555) 123-PLUMB</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="orange-gradient text-white p-3 rounded-lg mr-4">
+                                    <i class="fas fa-envelope text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-forest mb-2">Email</h3>
+                                    <p class="text-gray-600">Send us your questions or requests</p>
+                                    <p class="text-lg font-semibold text-tangerine">info@proplumbusa.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="orange-gradient text-white p-3 rounded-lg mr-4">
+                                    <i class="fas fa-clock text-xl"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold text-forest mb-2">Business Hours</h3>
+                                    <p class="text-gray-600">Mon-Fri: 8AM-6PM</p>
+                                    <p class="text-gray-600">Sat-Sun: 9AM-5PM</p>
+                                    <p class="text-tangerine font-semibold">Emergency: 24/7</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="bg-white rounded-2xl shadow-xl p-8">
+                            <h3 class="text-2xl font-bold text-forest mb-6">Send us a message</h3>
+                            <form class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <input type="text" placeholder="First Name"
+                                        class="px-4 py-3 border border-gray-300 rounded-lg focus:border-tangerine focus:outline-none">
+                                    <input type="text" placeholder="Last Name"
+                                        class="px-4 py-3 border border-gray-300 rounded-lg focus:border-tangerine focus:outline-none">
+                                </div>
+                                <input type="email" placeholder="Email Address"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-tangerine focus:outline-none">
+                                <input type="tel" placeholder="Phone Number"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-tangerine focus:outline-none">
+                                <textarea placeholder="Your Message" rows="4"
+                                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-tangerine focus:outline-none"></textarea>
+                                <button type="submit"
+                                    class="w-full orange-gradient text-white py-3 rounded-lg font-semibold hover:shadow-lg transition-all">
+                                    Send Message
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="gradient-bg text-white py-16">
+        <div class="container mx-auto px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                    <!-- Company Info -->
+                    <div>
+                        <div class="flex items-center mb-6">
+                            <div class="orange-gradient text-white p-3 rounded-lg mr-3">
+                                <i class="fas fa-wrench text-2xl"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold">ProPlumb USA</h3>
+                        </div>
+                        <p class="text-gray-200 mb-4">Your trusted plumbing professionals serving communities across the
+                            United States with excellence and reliability.</p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="bg-white/20 hover:bg-tangerine p-2 rounded-lg transition-colors">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="bg-white/20 hover:bg-tangerine p-2 rounded-lg transition-colors">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="bg-white/20 hover:bg-tangerine p-2 rounded-lg transition-colors">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a href="#" class="bg-white/20 hover:bg-tangerine p-2 rounded-lg transition-colors">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div>
+                        <h4 class="text-xl font-bold mb-6">Contact Information</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-tangerine mr-3 mt-1"></i>
+                                <div>
+                                    <p class="font-semibold">Headquarters</p>
+                                    <p class="text-gray-200">123 Plumbing Way<br>Professional Plaza, Suite 456<br>New
+                                        York, NY 10001</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-phone text-tangerine mr-3"></i>
+                                <div>
+                                    <p class="font-semibold">(555) 123-PLUMB</p>
+                                    <p class="text-gray-200 text-sm">24/7 Emergency Line</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-envelope text-tangerine mr-3"></i>
+                                <div>
+                                    <p class="font-semibold">info@proplumbusa.com</p>
+                                    <p class="text-gray-200 text-sm">General Inquiries</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Services -->
+                    <div>
+                        <h4 class="text-xl font-bold mb-6">Our Services</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Emergency
+                                    Plumbing</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Drain
+                                    Cleaning</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Water Heater
+                                    Services</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Bathroom
+                                    Remodeling</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Leak
+                                    Detection</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Pipe
+                                    Installation</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Fixture
+                                    Repair</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Commercial
+                                    Plumbing</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div>
+                        <h4 class="text-xl font-bold mb-6">Quick Links</h4>
+                        <ul class="space-y-2">
+                            <li><a href="#about" class="text-gray-200 hover:text-tangerine transition-colors">About
+                                    Us</a></li>
+                            <li><a href="#contact" class="text-gray-200 hover:text-tangerine transition-colors">Contact
+                                    Us</a></li>
+                            <li><a href="#careers"
+                                    class="text-gray-200 hover:text-tangerine transition-colors">Careers</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Service
+                                    Areas</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Reviews</a>
+                            </li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Blog</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Privacy
+                                    Policy</a></li>
+                            <li><a href="#" class="text-gray-200 hover:text-tangerine transition-colors">Terms of
+                                    Service</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Service Areas -->
+                <div class="border-t border-white/20 pt-8 mb-8">
+                    <h4 class="text-xl font-bold mb-4 text-center">Service Areas</h4>
+                    <div class="flex flex-wrap justify-center gap-2 text-sm">
+                        <span class="bg-white/10 px-3 py-1 rounded-full">New York</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Los Angeles</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Chicago</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Houston</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Phoenix</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Philadelphia</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">San Antonio</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">San Diego</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Dallas</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">San Jose</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Austin</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Jacksonville</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Fort Worth</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Columbus</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Charlotte</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Seattle</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Denver</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Washington DC</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Boston</span>
+                        <span class="bg-white/10 px-3 py-1 rounded-full">Nashville</span>
+                    </div>
+                </div>
+
+                <!-- Bottom Footer -->
+                <div class="border-t border-white/20 pt-8 text-center">
+                    <div class="flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-gray-200 mb-4 md:mb-0">
+                            © 2025 ProPlumb USA. All rights reserved. Licensed, Bonded & Insured.
+                        </p>
+                        <div class="flex items-center space-x-6">
+                            <div class="flex items-center">
+                                <i class="fas fa-certificate text-tangerine mr-2"></i>
+                                <span class="text-sm">Licensed Contractors</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-shield-alt text-tangerine mr-2"></i>
+                                <span class="text-sm">Fully Insured</span>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-tangerine mr-2"></i>
+                                <span class="text-sm">24/7 Emergency</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
